@@ -1,8 +1,7 @@
 package gomod
 
 import (
-	"github.com/cidverse/repoanalyzer/logger"
-	"github.com/go-logr/logr/testr"
+	"github.com/rs/zerolog/log"
 	"os"
 	"path/filepath"
 	"testing"
@@ -12,8 +11,6 @@ import (
 )
 
 func TestGoModAnalyzer_Analyze(t *testing.T) {
-	logger.Logger = testr.New(t)
-
 	cwd, err := os.Getwd()
 	assert.NoError(t, err)
 
@@ -36,5 +33,5 @@ func TestGoModAnalyzer_Analyze(t *testing.T) {
 	assert.Len(t, result[0].Submodules, 0)
 
 	// print result
-	logger.Info("output", "result", result)
+	log.Info().Interface("result", result).Msg("output")
 }

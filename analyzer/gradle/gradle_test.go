@@ -1,9 +1,8 @@
 package gradle
 
 import (
-	"github.com/cidverse/repoanalyzer/logger"
 	"github.com/cidverse/repoanalyzer/util"
-	"github.com/go-logr/logr/testr"
+	"github.com/rs/zerolog/log"
 	"testing"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -11,8 +10,6 @@ import (
 )
 
 func TestGradleAnalyzer_AnalyzeGroovy(t *testing.T) {
-	logger.Logger = testr.New(t)
-
 	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "gradle-groovy"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
@@ -32,12 +29,10 @@ func TestGradleAnalyzer_AnalyzeGroovy(t *testing.T) {
 	assert.Nil(t, result[0].Submodules[0].Language[analyzerapi.LanguageJava])
 
 	// print result
-	logger.Logger.Info("output", "result", result)
+	log.Info().Interface("result", result).Msg("output")
 }
 
 func TestGradleAnalyzer_AnalyzeKotlin(t *testing.T) {
-	logger.Logger = testr.New(t)
-
 	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "gradle-kotlin"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
@@ -57,5 +52,5 @@ func TestGradleAnalyzer_AnalyzeKotlin(t *testing.T) {
 	assert.Nil(t, result[0].Submodules[0].Language[analyzerapi.LanguageJava])
 
 	// print result
-	logger.Logger.Info("output", "result", result)
+	log.Info().Interface("result", result).Msg("output")
 }

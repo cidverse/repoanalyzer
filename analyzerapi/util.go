@@ -1,7 +1,7 @@
 package analyzerapi
 
 import (
-	"github.com/cidverse/repoanalyzer/logger"
+	"github.com/rs/zerolog/log"
 	ignore "github.com/sabhiram/go-gitignore"
 	"io/fs"
 	"os"
@@ -22,7 +22,7 @@ func GetAnalyzerContext(projectDir string) AnalyzerContext {
 	err := filepath.WalkDir(projectDir, func(path string, d fs.DirEntry, err error) error {
 		// check for directory skip
 		if err != nil {
-			logger.ErrorWithErr(err, "failed to index directory")
+			log.Warn().Err(err).Str("path", projectDir).Msg("output")
 			return nil
 		}
 
@@ -47,7 +47,7 @@ func GetAnalyzerContext(projectDir string) AnalyzerContext {
 		return nil
 	})
 	if err != nil {
-		logger.FatalWithErr(err, "failed to retrieve directory contents", "path", projectDir)
+		log.Fatal().Err(err).Str("path", projectDir).Msg("failed to get directory list")
 	}
 
 	// sorting

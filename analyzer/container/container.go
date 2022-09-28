@@ -1,8 +1,8 @@
 package container
 
 import (
-	"github.com/cidverse/repoanalyzer/logger"
 	"github.com/cidverse/repoanalyzer/util"
+	"github.com/rs/zerolog/log"
 	"golang.org/x/exp/slices"
 	"path/filepath"
 	"strings"
@@ -58,7 +58,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 		if strings.HasSuffix(filename, ".sh") {
 			content, contentErr := util.GetFileContent(file)
 			if contentErr != nil {
-				logger.Warn("failed to read file content", "file", file)
+				log.Warn().Str("file", file).Msg("failed to read file content")
 			} else if strings.Contains(content, "buildah from") {
 				module := analyzerapi.ProjectModule{
 					RootDirectory:     ctx.ProjectDir,

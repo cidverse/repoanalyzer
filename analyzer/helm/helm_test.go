@@ -1,9 +1,8 @@
 package helm
 
 import (
-	"github.com/cidverse/repoanalyzer/logger"
 	"github.com/cidverse/repoanalyzer/util"
-	"github.com/go-logr/logr/testr"
+	"github.com/rs/zerolog/log"
 	"testing"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -11,8 +10,6 @@ import (
 )
 
 func TestAnalyzer_AnalyzeHugo(t *testing.T) {
-	logger.Logger = testr.New(t)
-
 	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "helm"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
@@ -25,5 +22,5 @@ func TestAnalyzer_AnalyzeHugo(t *testing.T) {
 	assert.Nil(t, result[0].Language)
 
 	// print result
-	logger.Info("output", "result", result)
+	log.Info().Interface("result", result).Msg("output")
 }

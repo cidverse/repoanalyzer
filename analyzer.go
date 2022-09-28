@@ -1,6 +1,10 @@
 package repoanalyzer
 
 import (
+	"github.com/thoas/go-funk"
+	"strings"
+	"time"
+
 	"github.com/cidverse/repoanalyzer/analyzer/container"
 	"github.com/cidverse/repoanalyzer/analyzer/gomod"
 	"github.com/cidverse/repoanalyzer/analyzer/gradle"
@@ -8,12 +12,8 @@ import (
 	"github.com/cidverse/repoanalyzer/analyzer/hugo"
 	"github.com/cidverse/repoanalyzer/analyzer/node"
 	"github.com/cidverse/repoanalyzer/analyzer/python"
-	"github.com/cidverse/repoanalyzer/logger"
-	"github.com/thoas/go-funk"
-	"strings"
-	"time"
-
 	"github.com/cidverse/repoanalyzer/analyzerapi"
+	"github.com/rs/zerolog/log"
 )
 
 var analyzerCache = make(map[string][]*analyzerapi.ProjectModule)
@@ -29,7 +29,7 @@ func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule
 	}
 
 	start := time.Now()
-	logger.Logger.Info("repo analyzer start", "path", path, "scanners", len(analyzerapi.Analyzers))
+	log.Info().Str("path", path).Int("scanners", len(analyzerapi.Analyzers)).Msg("repo analyzer start")
 
 	// prepare context
 	ctx := analyzerapi.GetAnalyzerContext(projectDir)
@@ -38,8 +38,7 @@ func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule
 	var allModules []*analyzerapi.ProjectModule
 	var allModuleNames []string
 	for _, a := range analyzerapi.Analyzers {
-		logger.Debug("repo analyzer run", "name", a.GetName())
-
+		log.Debug().Str("name", a.GetName()).Msg("repo analyzer run")
 		modules := a.Analyze(ctx)
 		for _, module := range modules {
 			currentModule := module
@@ -50,7 +49,7 @@ func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule
 		}
 	}
 
-	logger.Info("repo analyzer complete", "module_count", len(allModules), "modules", allModuleNames, "duration", time.Since(start).String(), "file_count", len(ctx.Files))
+	log.Info().Int("module_count", len(allModules)).Strs("modules", allModuleNames).Str("duration", time.Since(start).String()).Int("file_count", len(ctx.Files)).Msg("repo analyzer complete")
 
 	analyzerCache[projectDir] = allModules
 	return allModules
