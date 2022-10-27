@@ -73,6 +73,7 @@ const (
 	BuildSystemRequirementsTXT ProjectBuildSystem = "python-requirements.txt"
 	BuildSystemPipfile         ProjectBuildSystem = "pipfile"
 	BuildSystemSetupPy         ProjectBuildSystem = "setup.py"
+	BuildSystemMkdocs          ProjectBuildSystem = "mkdocs"
 )
 
 type ProjectBuildSystemSyntax string
@@ -83,6 +84,7 @@ const (
 	GradleKotlinDSL          ProjectBuildSystemSyntax = "kotlin"
 	ContainerFile            ProjectBuildSystemSyntax = "containerfile"
 	ContainerBuildahScript   ProjectBuildSystemSyntax = "buildah-script"
+	MkdocsTechdocs           ProjectBuildSystemSyntax = "mkdocs-techdocs"
 )
 
 // ProjectDependency contains dependency information

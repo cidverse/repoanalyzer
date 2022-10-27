@@ -1,6 +1,7 @@
 package repoanalyzer
 
 import (
+	"github.com/cidverse/repoanalyzer/analyzer/mkdocs"
 	"github.com/thoas/go-funk"
 	"strings"
 	"time"
@@ -64,5 +65,6 @@ func initAnalyzers() {
 		hugo.Analyzer{},
 		node.Analyzer{},
 		python.Analyzer{},
+		mkdocs.Analyzer{},
 	)
 }
