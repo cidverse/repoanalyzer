@@ -45,7 +45,7 @@ func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule
 			currentModule := module
 			if strings.HasPrefix(currentModule.Directory, path) && !strings.Contains(currentModule.Directory, "testdata") {
 				allModules = append(allModules, currentModule)
-				allModuleNames = append(allModuleNames, currentModule.Slug)
+				allModuleNames = append(allModuleNames, currentModule.Slug+" ("+string(currentModule.BuildSystem)+")")
 			}
 		}
 	}
