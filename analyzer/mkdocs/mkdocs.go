@@ -23,7 +23,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 		if filename == "mkdocs.yml" || filename == "mkdocs.yaml" {
 			mkdocsDir := filepath.Dir(file)
 
-			if _, err := os.Stat(filepath.Join(mkdocsDir, "catalog-info.yml")); err == nil {
+			if _, err := os.Stat(filepath.Join(mkdocsDir, "catalog-info.yaml")); err == nil {
 				// module
 				module := analyzerapi.ProjectModule{
 					RootDirectory:     ctx.ProjectDir,
