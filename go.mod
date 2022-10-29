@@ -6,7 +6,7 @@ require (
 	github.com/gosimple/slug v1.13.1
 	github.com/rs/zerolog v1.28.0
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.1
 	github.com/thoas/go-funk v0.9.2
 	golang.org/x/exp v0.0.0-20220927162542-c76eaa363f9d
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4
