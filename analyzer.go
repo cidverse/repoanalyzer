@@ -1,6 +1,7 @@
 package repoanalyzer
 
 import (
+	"github.com/cidverse/repoanalyzer/analyzer/maven"
 	"github.com/cidverse/repoanalyzer/analyzer/mkdocs"
 	"github.com/thoas/go-funk"
 	"strings"
@@ -61,6 +62,7 @@ func initAnalyzers() {
 		container.Analyzer{},
 		gomod.Analyzer{},
 		gradle.Analyzer{},
+		maven.Analyzer{},
 		helm.Analyzer{},
 		hugo.Analyzer{},
 		node.Analyzer{},
