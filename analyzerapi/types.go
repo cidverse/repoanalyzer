@@ -14,40 +14,40 @@ type Analyzer interface {
 // ProjectModule contains information about project modules
 type ProjectModule struct {
 	// RootDirectory stores the project root directory
-	RootDirectory string
+	RootDirectory string `json:"project-dir"`
 
 	// Directory stores the module root directory
-	Directory string
+	Directory string `json:"module-dir"`
 
 	// Discovery stores information on how this module was discovered
-	Discovery []string
+	Discovery []string `json:"discovery"`
 
 	// Name stores the module name
-	Name string
+	Name string `json:"name"`
 
 	// Slug contains an url/folder name compatible name of the module
-	Slug string
+	Slug string `json:"slug"`
 
 	// BuildSystem used in this project
-	BuildSystem ProjectBuildSystem
+	BuildSystem ProjectBuildSystem `json:"build-system"`
 
 	// BuildSystemSyntax used in this project
-	BuildSystemSyntax ProjectBuildSystemSyntax
+	BuildSystemSyntax ProjectBuildSystemSyntax `json:"build-system-syntax"`
 
 	// Language of the project
-	Language map[ProjectLanguage]*string
+	Language map[ProjectLanguage]*string `json:"language"`
 
 	// Dependencies
-	Dependencies []ProjectDependency
+	Dependencies []ProjectDependency `json:"dependencies"`
 
 	// Submodules contains information about submodules
-	Submodules []*ProjectModule
+	Submodules []*ProjectModule `json:"submodules"`
 
 	// Files holds all project files
-	Files []string
+	Files []string `json:"files"`
 
 	// FilesByExtension contains all files by extension
-	FilesByExtension map[string][]string
+	FilesByExtension map[string][]string `json:"-"`
 }
 
 type ProjectLanguage string
@@ -90,26 +90,26 @@ const (
 // ProjectDependency contains dependency information
 type ProjectDependency struct {
 	// Type is the dep kind
-	Type string
+	Type string `json:"type"`
 
 	// ID is the identifier
-	ID string
+	ID string `json:"id"`
 
 	// Version is the dep version
-	Version string
+	Version string `json:"version"`
 }
 
 // AnalyzerContext holds the context to analyze projects
 type AnalyzerContext struct {
 	// ProjectDir holds the project directory
-	ProjectDir string
+	ProjectDir string `json:"project-dir"`
 
 	// Files holds all project files
-	Files []string
+	Files []string `json:"files"`
 
 	// FilesByExtension contains all files by extension
-	FilesByExtension map[string][]string
+	FilesByExtension map[string][]string `json:"files-by-extension"`
 
 	// FilesWithoutExtension contains all files without an extension
-	FilesWithoutExtension []string
+	FilesWithoutExtension []string `json:"files-without-extension"`
 }
