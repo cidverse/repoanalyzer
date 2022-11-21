@@ -14,10 +14,10 @@ type Analyzer interface {
 // ProjectModule contains information about project modules
 type ProjectModule struct {
 	// RootDirectory stores the project root directory
-	RootDirectory string `json:"project-dir"`
+	RootDirectory string `json:"project_dir"`
 
 	// Directory stores the module root directory
-	Directory string `json:"module-dir"`
+	Directory string `json:"module_dir"`
 
 	// Discovery stores information on how this module was discovered
 	Discovery []string `json:"discovery"`
@@ -29,10 +29,10 @@ type ProjectModule struct {
 	Slug string `json:"slug"`
 
 	// BuildSystem used in this project
-	BuildSystem ProjectBuildSystem `json:"build-system"`
+	BuildSystem ProjectBuildSystem `json:"build_system"`
 
 	// BuildSystemSyntax used in this project
-	BuildSystemSyntax ProjectBuildSystemSyntax `json:"build-system-syntax"`
+	BuildSystemSyntax ProjectBuildSystemSyntax `json:"build_system_syntax"`
 
 	// Language of the project
 	Language map[ProjectLanguage]*string `json:"language"`
@@ -102,14 +102,14 @@ type ProjectDependency struct {
 // AnalyzerContext holds the context to analyze projects
 type AnalyzerContext struct {
 	// ProjectDir holds the project directory
-	ProjectDir string `json:"project-dir"`
+	ProjectDir string `json:"project_dir"`
 
 	// Files holds all project files
 	Files []string `json:"files"`
 
 	// FilesByExtension contains all files by extension
-	FilesByExtension map[string][]string `json:"files-by-extension"`
+	FilesByExtension map[string][]string `json:"files_by_extension"`
 
 	// FilesWithoutExtension contains all files without an extension
-	FilesWithoutExtension []string `json:"files-without-extension"`
+	FilesWithoutExtension []string `json:"files_without_extension"`
 }
