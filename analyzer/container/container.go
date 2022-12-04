@@ -1,11 +1,12 @@
 package container
 
 import (
+	"path/filepath"
+	"strings"
+
 	"github.com/cidverse/repoanalyzer/util"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/exp/slices"
-	"path/filepath"
-	"strings"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
@@ -35,7 +36,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 					Directory:         filepath.Dir(file),
 					Name:              filepath.Base(filepath.Dir(file)),
 					Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
-					Discovery:         []string{"file~" + file},
+					Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 					BuildSystem:       analyzerapi.BuildSystemContainer,
 					BuildSystemSyntax: analyzerapi.ContainerFile,
 					Language:          nil,
@@ -46,7 +47,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 				}
 				analyzerapi.AddModuleToResult(&result, &module)
 			} else {
-				result[moduleIdx].Discovery = append(result[moduleIdx].Discovery, "file~"+file)
+				result[moduleIdx].Discovery = append(result[moduleIdx].Discovery, analyzerapi.ProjectModuleDiscovery{File: file})
 			}
 		}
 	}
@@ -65,7 +66,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 					Directory:         filepath.Dir(file),
 					Name:              filepath.Base(filepath.Dir(file)),
 					Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
-					Discovery:         []string{"file~" + file},
+					Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 					BuildSystem:       analyzerapi.BuildSystemContainer,
 					BuildSystemSyntax: analyzerapi.ContainerBuildahScript,
 					Language:          nil,

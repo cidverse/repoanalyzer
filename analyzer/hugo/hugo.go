@@ -1,8 +1,9 @@
 package hugo
 
 import (
-	"github.com/cidverse/repoanalyzer/util"
 	"path/filepath"
+
+	"github.com/cidverse/repoanalyzer/util"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
@@ -29,7 +30,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 					Directory:         filepath.Dir(file),
 					Name:              filepath.Base(filepath.Dir(file)),
 					Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
-					Discovery:         []string{"file~" + file},
+					Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 					BuildSystem:       analyzerapi.BuildSystemHugo,
 					BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 					Language:          nil,

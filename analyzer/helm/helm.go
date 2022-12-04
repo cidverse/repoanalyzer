@@ -26,7 +26,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),
 				Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
-				Discovery:         []string{"file~" + file},
+				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				BuildSystem:       analyzerapi.BuildSystemHelm,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          nil,

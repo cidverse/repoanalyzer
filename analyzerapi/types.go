@@ -20,7 +20,7 @@ type ProjectModule struct {
 	Directory string `json:"module_dir"`
 
 	// Discovery stores information on how this module was discovered
-	Discovery []string `json:"discovery"`
+	Discovery []ProjectModuleDiscovery `json:"discovery"`
 
 	// Name stores the module name
 	Name string `json:"name"`
@@ -50,6 +50,11 @@ type ProjectModule struct {
 	FilesByExtension map[string][]string `json:"-"`
 }
 
+// ProjectModuleDiscovery contains info on the files used to discover the module
+type ProjectModuleDiscovery struct {
+	File string `json:"file"`
+}
+
 type ProjectLanguage string
 
 const (
@@ -73,6 +78,7 @@ const (
 	BuildSystemRequirementsTXT ProjectBuildSystem = "python-requirements.txt"
 	BuildSystemPipfile         ProjectBuildSystem = "pipfile"
 	BuildSystemSetupPy         ProjectBuildSystem = "setup.py"
+	BuildSystemPoetry          ProjectBuildSystem = "poetry"
 	BuildSystemMkdocs          ProjectBuildSystem = "mkdocs"
 )
 

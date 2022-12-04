@@ -1,8 +1,9 @@
 package gomod
 
 import (
-	"github.com/cidverse/repoanalyzer/util"
 	"path/filepath"
+
+	"github.com/cidverse/repoanalyzer/util"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
@@ -53,7 +54,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 				Directory:         filepath.Dir(file),
 				Name:              goMod.Module.Mod.Path,
 				Slug:              slug.Make(goMod.Module.Mod.Path),
-				Discovery:         []string{"file~" + file},
+				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				BuildSystem:       analyzerapi.BuildSystemGoMod,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          analyzerapi.GetSingleLanguageMap(analyzerapi.LanguageGolang, &goVersion),

@@ -1,9 +1,10 @@
 package maven
 
 import (
+	"path/filepath"
+
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
-	"path/filepath"
 )
 
 type Analyzer struct{}
@@ -34,7 +35,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 			Directory:         filepath.Dir(file),
 			Name:              filepath.Base(filepath.Dir(file)),
 			Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
-			Discovery:         []string{"file~" + file},
+			Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 			BuildSystem:       analyzerapi.BuildSystemMaven,
 			BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 			Language:          language,

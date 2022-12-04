@@ -1,8 +1,9 @@
 package node
 
 import (
-	"github.com/thoas/go-funk"
 	"path/filepath"
+
+	"github.com/thoas/go-funk"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
@@ -55,7 +56,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 				Directory:         filepath.Dir(file),
 				Name:              packageData.Name,
 				Slug:              slug.Make(packageData.Name),
-				Discovery:         []string{"file~" + file},
+				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				BuildSystem:       analyzerapi.BuildSystemNpm,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          language,
