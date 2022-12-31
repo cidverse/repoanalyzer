@@ -2,11 +2,11 @@ package node
 
 import (
 	"encoding/json"
-	"errors"
+	"fmt"
 	"os"
 )
 
-type PackageStruct struct {
+type PackageJSON struct {
 	Name         string
 	Version      string
 	Dependencies map[string]string
@@ -14,22 +14,18 @@ type PackageStruct struct {
 }
 
 // ParsePackageJSON will parse the package.json to evaluate its content
-func ParsePackageJSON(file string) (PackageStruct, error) {
-	var result PackageStruct
+func ParsePackageJSON(file string) (PackageJSON, error) {
+	var result PackageJSON
 
-	// package.json
-	if _, err := os.Stat(file); errors.Is(err, os.ErrNotExist) {
-		return PackageStruct{}, errors.New("failed to open package.json")
+	// Read the contents of the package.json file
+	pkgJSON, err := os.ReadFile(file)
+	if err != nil {
+		return PackageJSON{}, fmt.Errorf("failed to open package.json: %v", err)
 	}
 
-	fileBytes, fileErr := os.ReadFile(file)
-	if fileErr == nil {
-		unmarshalErr := json.Unmarshal(fileBytes, &result)
-		if unmarshalErr != nil {
-			return PackageStruct{}, errors.New("failed to parse package.json")
-		}
-	} else {
-		return PackageStruct{}, errors.New("failed to open package.json")
+	// Unmarshal the JSON into a PackageStruct struct
+	if err := json.Unmarshal(pkgJSON, &result); err != nil {
+		return PackageJSON{}, fmt.Errorf("failed to parse package.json: %v", err)
 	}
 
 	return result, nil

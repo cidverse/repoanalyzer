@@ -1,6 +1,7 @@
 package maven
 
 import (
+	"fmt"
 	"path/filepath"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -22,12 +23,22 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 			continue
 		}
 
+		// parse pom.xml
+		pomXML, pomXMLErr := ParsePackageJSON(file)
+		if pomXMLErr != nil {
+			fmt.Println(pomXMLErr)
+			continue
+		}
+
 		// language
-		language := make(map[analyzerapi.ProjectLanguage]*string)
-		language[analyzerapi.LanguageJava] = nil
+		language := make(map[analyzerapi.ProjectLanguage]string)
+		language[analyzerapi.LanguageJava] = pomXML.PropJavaVersion
 
 		// deps
 		var dependencies []analyzerapi.ProjectDependency
+		for _, dep := range pomXML.Dependencies {
+			dependencies = append(dependencies, analyzerapi.ProjectDependency{Type: "maven", ID: dep.GroupID + ":" + dep.ArtifactID, Version: dep.Version})
+		}
 
 		// module
 		module := analyzerapi.ProjectModule{

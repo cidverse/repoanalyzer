@@ -35,7 +35,7 @@ type ProjectModule struct {
 	BuildSystemSyntax ProjectBuildSystemSyntax `json:"build_system_syntax"`
 
 	// Language of the project
-	Language map[ProjectLanguage]*string `json:"language"`
+	Language map[ProjectLanguage]string `json:"language"`
 
 	// Dependencies
 	Dependencies []ProjectDependency `json:"dependencies"`

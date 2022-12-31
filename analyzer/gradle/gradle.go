@@ -1,6 +1,8 @@
 package gradle
 
 import (
+	"fmt"
+	"os"
 	"path/filepath"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -21,20 +23,36 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 
 		// detect build system syntax
 		var buildSystemSyntax analyzerapi.ProjectBuildSystemSyntax
+		var buildGradle BuildGradle
 		if filename == "build.gradle" {
 			buildSystemSyntax = analyzerapi.GradleGroovyDSL
+			var buildGradleErr error
+			buildGradle, buildGradleErr = ParseBuildGradleGroovy(file)
+			if buildGradleErr != nil {
+				if os.Getenv("DEBUG") == "true" || os.Getenv("REPOANAYLZER_DEBUG") == "true" {
+					fmt.Printf("%v", buildGradleErr)
+				}
+			}
 		} else if filename == "build.gradle.kts" {
 			buildSystemSyntax = analyzerapi.GradleKotlinDSL
+			var buildGradleErr error
+			buildGradle, buildGradleErr = ParseBuildGradleKotlin(file)
+			if buildGradleErr != nil {
+				if os.Getenv("DEBUG") == "true" || os.Getenv("REPOANAYLZER_DEBUG") == "true" {
+					fmt.Printf("%v", buildGradleErr)
+				}
+			}
 		} else {
 			continue
 		}
 
 		// language
-		language := make(map[analyzerapi.ProjectLanguage]*string)
-		language[analyzerapi.LanguageJava] = nil
+		language := make(map[analyzerapi.ProjectLanguage]string)
+		language[analyzerapi.LanguageJava] = buildGradle.JavaVersion
 
 		// deps
 		var dependencies []analyzerapi.ProjectDependency
+		dependencies = append(dependencies, buildGradle.Dependencies...)
 
 		// module
 		module := analyzerapi.ProjectModule{
@@ -46,7 +64,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 			BuildSystem:       analyzerapi.BuildSystemGradle,
 			BuildSystemSyntax: buildSystemSyntax,
 			Language:          language,
-			Dependencies:      dependencies,
+			Dependencies:      buildGradle.Dependencies,
 			Submodules:        nil,
 			Files:             ctx.Files,
 			FilesByExtension:  ctx.FilesByExtension,

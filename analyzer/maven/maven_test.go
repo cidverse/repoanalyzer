@@ -1,11 +1,12 @@
 package maven
 
 import (
+	"testing"
+
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/cidverse/repoanalyzer/util"
 	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestAnalyzer_AnalyzeMaven(t *testing.T) {
@@ -19,6 +20,11 @@ func TestAnalyzer_AnalyzeMaven(t *testing.T) {
 	assert.Equal(t, "maven", result[0].Name)
 	assert.Equal(t, "maven", string(result[0].BuildSystem))
 	assert.Equal(t, string(analyzerapi.BuildSystemSyntaxDefault), string(result[0].BuildSystemSyntax))
+	assert.Equal(t, "1.8", result[0].Language[analyzerapi.LanguageJava])
+	assert.Len(t, result[0].Dependencies, 1)
+	assert.Equal(t, "maven", result[0].Dependencies[0].Type)
+	assert.Equal(t, "junit:junit", result[0].Dependencies[0].ID)
+	assert.Equal(t, "4.12", result[0].Dependencies[0].Version)
 
 	// print result
 	log.Info().Interface("result", result).Msg("output")

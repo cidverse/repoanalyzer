@@ -57,7 +57,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				BuildSystem:       analyzerapi.BuildSystemGoMod,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
-				Language:          analyzerapi.GetSingleLanguageMap(analyzerapi.LanguageGolang, &goVersion),
+				Language:          analyzerapi.GetSingleLanguageMap(analyzerapi.LanguageGolang, goVersion),
 				Dependencies:      dependencies,
 				Submodules:        nil,
 				Files:             ctx.Files,

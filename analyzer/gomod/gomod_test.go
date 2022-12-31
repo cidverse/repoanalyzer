@@ -1,10 +1,11 @@
 package gomod
 
 import (
-	"github.com/rs/zerolog/log"
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/rs/zerolog/log"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/stretchr/testify/assert"
@@ -24,7 +25,7 @@ func TestGoModAnalyzer_Analyze(t *testing.T) {
 	assert.Equal(t, analyzerapi.BuildSystemGoMod, result[0].BuildSystem)
 	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
 	assert.NotNil(t, result[0].Language[analyzerapi.LanguageGolang])
-	assert.Equal(t, "1.16.0", *result[0].Language[analyzerapi.LanguageGolang])
+	assert.Equal(t, "1.16.0", result[0].Language[analyzerapi.LanguageGolang])
 	assert.Equal(t, "gomod", result[0].Dependencies[0].Type)
 	assert.Equal(t, "github.com/Masterminds/semver/v3", result[0].Dependencies[0].ID)
 	assert.Equal(t, "v3.1.1", result[0].Dependencies[0].Version)

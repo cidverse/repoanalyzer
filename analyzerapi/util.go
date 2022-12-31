@@ -1,13 +1,14 @@
 package analyzerapi
 
 import (
-	"github.com/rs/zerolog/log"
-	ignore "github.com/sabhiram/go-gitignore"
 	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
+
+	"github.com/rs/zerolog/log"
+	ignore "github.com/sabhiram/go-gitignore"
 )
 
 func GetAnalyzerContext(projectDir string) AnalyzerContext {
@@ -74,8 +75,8 @@ func FindParentModule(modules *[]*ProjectModule, module *ProjectModule) *Project
 	return nil
 }
 
-func GetSingleLanguageMap(language ProjectLanguage, version *string) map[ProjectLanguage]*string {
-	languageMap := make(map[ProjectLanguage]*string)
+func GetSingleLanguageMap(language ProjectLanguage, version string) map[ProjectLanguage]string {
+	languageMap := make(map[ProjectLanguage]string)
 	languageMap[language] = version
 	return languageMap
 }
