@@ -80,6 +80,7 @@ const (
 	BuildSystemSetupPy         ProjectBuildSystem = "setup.py"
 	BuildSystemPoetry          ProjectBuildSystem = "poetry"
 	BuildSystemMkdocs          ProjectBuildSystem = "mkdocs"
+	BuildSystemComposer        ProjectBuildSystem = "composer"
 )
 
 type ProjectBuildSystemSyntax string
