@@ -9,7 +9,7 @@ require (
 	github.com/stretchr/testify v1.8.1
 	github.com/thoas/go-funk v0.9.3
 	golang.org/x/exp v0.0.0-20220927162542-c76eaa363f9d
-	golang.org/x/mod v0.7.0
+	golang.org/x/mod v0.8.0
 )
 
 require (
