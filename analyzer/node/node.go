@@ -31,12 +31,11 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 
 			// language
 			language := make(map[analyzerapi.ProjectLanguage]string)
-			// language[analyzerapi.LanguageJavascript] = nil
-
-			// - typescript?
 			if funk.Contains(packageData.Dependencies, "typescript") {
 				typescriptVersion := packageData.Dependencies["typescript"]
 				language[analyzerapi.LanguageTypescript] = typescriptVersion
+			} else {
+				language[analyzerapi.LanguageJavascript] = "0.0.0"
 			}
 
 			// deps
