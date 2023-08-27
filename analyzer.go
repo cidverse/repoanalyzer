@@ -1,11 +1,12 @@
 package repoanalyzer
 
 import (
+	"strings"
+	"time"
+
 	"github.com/cidverse/repoanalyzer/analyzer/maven"
 	"github.com/cidverse/repoanalyzer/analyzer/mkdocs"
 	"github.com/thoas/go-funk"
-	"strings"
-	"time"
 
 	"github.com/cidverse/repoanalyzer/analyzer/container"
 	"github.com/cidverse/repoanalyzer/analyzer/gomod"
@@ -31,7 +32,7 @@ func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule
 	}
 
 	start := time.Now()
-	log.Info().Str("path", path).Int("scanners", len(analyzerapi.Analyzers)).Msg("repo analyzer start")
+	log.Debug().Str("path", path).Int("scanners", len(analyzerapi.Analyzers)).Msg("repo analyzer start")
 
 	// prepare context
 	ctx := analyzerapi.GetAnalyzerContext(projectDir)
@@ -40,7 +41,7 @@ func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule
 	var allModules []*analyzerapi.ProjectModule
 	var allModuleNames []string
 	for _, a := range analyzerapi.Analyzers {
-		log.Debug().Str("name", a.GetName()).Msg("repo analyzer run")
+		log.Trace().Str("name", a.GetName()).Msg("repo analyzer run")
 		modules := a.Analyze(ctx)
 		for _, module := range modules {
 			currentModule := module
@@ -51,7 +52,7 @@ func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule
 		}
 	}
 
-	log.Info().Int("module_count", len(allModules)).Strs("modules", allModuleNames).Str("duration", time.Since(start).String()).Int("file_count", len(ctx.Files)).Msg("repo analyzer complete")
+	log.Debug().Str("path", path).Int("module_count", len(allModules)).Strs("modules", allModuleNames).Str("duration", time.Since(start).String()).Int("file_count", len(ctx.Files)).Msg("repo analyzer complete")
 
 	analyzerCache[projectDir] = allModules
 	return allModules
