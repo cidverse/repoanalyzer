@@ -4,5 +4,11 @@
     "github>cidverse/renovate-config:default",
     "github>cidverse/renovate-config:assignee"
   ],
-  "baseBranches": ["main"]
+  "baseBranches": ["main"],
+  "ignorePaths": [
+    ".github/workflows/cid.yml",
+    ".github/workflows/cid-pullrequest.yml",
+    "**/testdata/**",
+    "**/examples/**"
+  ]
 }
