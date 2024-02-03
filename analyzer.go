@@ -4,15 +4,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cidverse/repoanalyzer/analyzer/maven"
-	"github.com/cidverse/repoanalyzer/analyzer/mkdocs"
-	"github.com/thoas/go-funk"
-
 	"github.com/cidverse/repoanalyzer/analyzer/container"
 	"github.com/cidverse/repoanalyzer/analyzer/gomod"
 	"github.com/cidverse/repoanalyzer/analyzer/gradle"
 	"github.com/cidverse/repoanalyzer/analyzer/helm"
 	"github.com/cidverse/repoanalyzer/analyzer/hugo"
+	"github.com/cidverse/repoanalyzer/analyzer/maven"
+	"github.com/cidverse/repoanalyzer/analyzer/mkdocs"
 	"github.com/cidverse/repoanalyzer/analyzer/node"
 	"github.com/cidverse/repoanalyzer/analyzer/python"
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -23,7 +21,7 @@ var analyzerCache = make(map[string][]*analyzerapi.ProjectModule)
 
 // AnalyzeProject will analyze a project and return all modules in path
 func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule {
-	if funk.Contains(analyzerCache, path) {
+	if _, ok := analyzerCache[path]; ok {
 		return analyzerCache[path]
 	}
 

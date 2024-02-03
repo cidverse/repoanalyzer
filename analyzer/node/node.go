@@ -3,8 +3,6 @@ package node
 import (
 	"path/filepath"
 
-	"github.com/thoas/go-funk"
-
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
 )
@@ -31,7 +29,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 
 			// language
 			language := make(map[analyzerapi.ProjectLanguage]string)
-			if funk.Contains(packageData.Dependencies, "typescript") {
+			if _, ok := packageData.Dependencies["typescript"]; ok {
 				typescriptVersion := packageData.Dependencies["typescript"]
 				language[analyzerapi.LanguageTypescript] = typescriptVersion
 			} else {
