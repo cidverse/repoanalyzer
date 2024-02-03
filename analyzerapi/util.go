@@ -86,6 +86,12 @@ func AddModuleToResult(result *[]*ProjectModule, module *ProjectModule) {
 	if parent != nil {
 		module.Name = parent.Name + "-" + module.Name
 		module.Slug = parent.Slug + "-" + module.Slug
+
+		// inherit language from parent if not set
+		if module.Language == nil || len(module.Language) == 0 {
+			module.Language = parent.Language
+		}
+
 		parent.Submodules = append(parent.Submodules, module)
 	} else {
 		*result = append(*result, module)
