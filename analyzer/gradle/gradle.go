@@ -46,10 +46,6 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 			continue
 		}
 
-		// language
-		language := make(map[analyzerapi.ProjectLanguage]string)
-		language[analyzerapi.LanguageJava] = buildGradle.JavaVersion
-
 		// deps
 		var dependencies []analyzerapi.ProjectDependency
 		dependencies = append(dependencies, buildGradle.Dependencies...)
@@ -63,7 +59,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 			Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 			BuildSystem:       analyzerapi.BuildSystemGradle,
 			BuildSystemSyntax: buildSystemSyntax,
-			Language:          language,
+			Language:          buildGradle.Languages,
 			Dependencies:      buildGradle.Dependencies,
 			Submodules:        nil,
 			Files:             ctx.Files,

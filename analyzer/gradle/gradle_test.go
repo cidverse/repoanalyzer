@@ -22,7 +22,7 @@ func TestGradleAnalyzer_AnalyzeGroovy(t *testing.T) {
 	assert.Equal(t, "gradle-groovy", result[0].Name)
 	assert.Equal(t, analyzerapi.BuildSystemGradle, result[0].BuildSystem)
 	assert.Equal(t, analyzerapi.GradleGroovyDSL, result[0].BuildSystemSyntax)
-	assert.Equal(t, "8.0.0", result[0].Language[analyzerapi.LanguageJava])
+	assert.Equal(t, "17.0.0", result[0].Language[analyzerapi.LanguageJava])
 	assert.Len(t, result[0].Dependencies, 1)
 	assert.Equal(t, "maven", result[0].Dependencies[0].Type)
 	assert.Equal(t, "junit:junit", result[0].Dependencies[0].ID)

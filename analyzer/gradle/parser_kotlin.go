@@ -4,30 +4,35 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strings"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 )
 
 // ParseBuildGradleKotlin parses the build.gradle.kts file and extracts the Java version and dependencies
 func ParseBuildGradleKotlin(file string) (BuildGradle, error) {
-	// Read the contents of the build.gradle.kts file
+	// read build.gradle.kts
 	buildGradle, err := os.ReadFile(file)
 	if err != nil {
 		return BuildGradle{}, fmt.Errorf("failed to open build.gradle.kts: %v", err)
 	}
-
-	// Convert the contents to a string
 	buildGradleStr := string(buildGradle)
 
-	// Extract the Java version
-	javaRegex := regexp.MustCompile(`sourceCompatibility\s?=\s?(['"])?(.*)(['"])?`)
-	javaMatches := javaRegex.FindStringSubmatch(buildGradleStr)
-	if len(javaMatches) < 3 {
-		return BuildGradle{}, fmt.Errorf("failed to extract Java version from build.gradle.kts")
+	// languages
+	languages := make(map[analyzerapi.ProjectLanguage]string)
+	pluginBlock := extractPluginBlock(buildGradleStr)
+	if pluginBlock != "" {
+		for _, plugin := range kotlinPlugins {
+			if strings.Contains(pluginBlock, fmt.Sprintf("kotlin(\"%s\")", plugin)) || strings.Contains(pluginBlock, fmt.Sprintf("id(\"org.jetbrains.kotlin.%s\")", plugin)) {
+				languages[analyzerapi.LanguageKotlin] = ""
+			}
+		}
+		if strings.Contains(pluginBlock, "java") || strings.Contains(pluginBlock, "java-library") {
+			languages[analyzerapi.LanguageJava] = parseJavaVersionOrDefault(buildGradleStr, "21.0.0")
+		}
 	}
-	javaVersion := getSemverJavaVersion(javaMatches[2])
 
-	// Extract the dependencies
+	// dependencies
 	depRegex := regexp.MustCompile(`(implementation|compile)\s*\((['"])([^:]+):([^:]+):([^:]+)(['"])\)`)
 	depMatches := depRegex.FindAllStringSubmatch(buildGradleStr, -1)
 	dependencies := make([]analyzerapi.ProjectDependency, 0, len(depMatches))
@@ -39,7 +44,7 @@ func ParseBuildGradleKotlin(file string) (BuildGradle, error) {
 
 	// Return the BuildGradle struct
 	return BuildGradle{
-		JavaVersion:  javaVersion,
+		Languages:    languages,
 		Dependencies: dependencies,
 	}, nil
 }

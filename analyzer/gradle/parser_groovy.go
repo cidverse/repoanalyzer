@@ -4,30 +4,35 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strings"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 )
 
 // ParseBuildGradleGroovy parses the build.gradle file and extracts the Java version and dependencies
 func ParseBuildGradleGroovy(file string) (BuildGradle, error) {
-	// Read the contents of the build.gradle file
+	// read build.gradle
 	buildGradle, err := os.ReadFile(file)
 	if err != nil {
 		return BuildGradle{}, fmt.Errorf("failed to open build.gradle: %v", err)
 	}
-
-	// Convert the contents to a string
 	buildGradleStr := string(buildGradle)
 
-	// Extract the Java version
-	javaRegex := regexp.MustCompile(`sourceCompatibility\s?=\s?['"]?(.*)['"]?`)
-	javaMatches := javaRegex.FindStringSubmatch(buildGradleStr)
-	if len(javaMatches) < 2 {
-		return BuildGradle{}, fmt.Errorf("failed to extract Java version from build.gradle")
+	// languages
+	languages := make(map[analyzerapi.ProjectLanguage]string)
+	pluginBlock := extractPluginBlock(buildGradleStr)
+	if pluginBlock != "" {
+		for _, plugin := range kotlinPlugins {
+			if strings.Contains(pluginBlock, fmt.Sprintf("id 'org.jetbrains.kotlin.%s'", plugin)) {
+				languages[analyzerapi.LanguageKotlin] = ""
+			}
+		}
+		if strings.Contains(pluginBlock, "id 'java'") || strings.Contains(pluginBlock, "id 'java-library'") {
+			languages[analyzerapi.LanguageJava] = parseJavaVersionOrDefault(buildGradleStr, "21.0.0")
+		}
 	}
-	javaVersion := getSemverJavaVersion(javaMatches[1])
 
-	// Extract the dependencies
+	// dependencies
 	depRegex := regexp.MustCompile(`(implementation|compile) ['"](.*:.*):(.*)['"]`)
 	depMatches := depRegex.FindAllStringSubmatch(buildGradleStr, -1)
 	dependencies := make([]analyzerapi.ProjectDependency, 0, len(depMatches))
@@ -37,9 +42,8 @@ func ParseBuildGradleGroovy(file string) (BuildGradle, error) {
 		}
 	}
 
-	// Return the BuildGradle struct
 	return BuildGradle{
-		JavaVersion:  javaVersion,
+		Languages:    languages,
 		Dependencies: dependencies,
 	}, nil
 }

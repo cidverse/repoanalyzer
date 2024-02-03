@@ -60,6 +60,7 @@ type ProjectLanguage string
 const (
 	LanguageGolang     ProjectLanguage = "go"
 	LanguageJava       ProjectLanguage = "java"
+	LanguageKotlin     ProjectLanguage = "kotlin"
 	LanguageJavascript ProjectLanguage = "javascript"
 	LanguageTypescript ProjectLanguage = "typescript"
 	LanguagePython     ProjectLanguage = "python"
