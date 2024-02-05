@@ -4,10 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cidverse/repoanalyzer/util"
-	"github.com/rs/zerolog/log"
-
 	"github.com/cidverse/repoanalyzer/analyzerapi"
+	"github.com/cidverse/repoanalyzer/util"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -35,7 +33,9 @@ func TestGradleAnalyzer_AnalyzeGroovy(t *testing.T) {
 	assert.Equal(t, string(analyzerapi.GradleGroovyDSL), string(result[0].Submodules[0].BuildSystemSyntax))
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }
 
 func TestGradleAnalyzer_AnalyzeKotlin(t *testing.T) {
@@ -59,5 +59,7 @@ func TestGradleAnalyzer_AnalyzeKotlin(t *testing.T) {
 	assert.Equal(t, string(analyzerapi.GradleKotlinDSL), string(result[0].Submodules[0].BuildSystemSyntax))
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }

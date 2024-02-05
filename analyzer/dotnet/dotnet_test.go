@@ -3,10 +3,8 @@ package dotnet
 import (
 	"testing"
 
-	"github.com/cidverse/repoanalyzer/util"
-	"github.com/rs/zerolog/log"
-
 	"github.com/cidverse/repoanalyzer/analyzerapi"
+	"github.com/cidverse/repoanalyzer/util"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -23,5 +21,7 @@ func TestAnalyzer_AnalyzeVisualStudioSolution(t *testing.T) {
 	assert.Equal(t, "default", string(result[0].BuildSystemSyntax))
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }

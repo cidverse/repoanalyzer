@@ -5,7 +5,6 @@ import (
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/cidverse/repoanalyzer/util"
-	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -27,5 +26,7 @@ func TestAnalyzer_AnalyzeMaven(t *testing.T) {
 	assert.Equal(t, "4.12", result[0].Dependencies[0].Version)
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }

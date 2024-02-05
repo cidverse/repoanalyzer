@@ -4,7 +4,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cidverse/repoanalyzer/analyzer/cargo"
+	"github.com/cidverse/repoanalyzer/analyzer/composer"
 	"github.com/cidverse/repoanalyzer/analyzer/container"
+	"github.com/cidverse/repoanalyzer/analyzer/dotnet"
 	"github.com/cidverse/repoanalyzer/analyzer/gomod"
 	"github.com/cidverse/repoanalyzer/analyzer/gradle"
 	"github.com/cidverse/repoanalyzer/analyzer/helm"
@@ -67,5 +70,8 @@ func initAnalyzers() {
 		node.Analyzer{},
 		python.Analyzer{},
 		mkdocs.Analyzer{},
+		dotnet.Analyzer{},
+		composer.Analyzer{},
+		cargo.Analyzer{},
 	)
 }

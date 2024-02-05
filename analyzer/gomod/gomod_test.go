@@ -5,8 +5,6 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/rs/zerolog/log"
-
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/stretchr/testify/assert"
 )
@@ -34,5 +32,7 @@ func TestGoModAnalyzer_Analyze(t *testing.T) {
 	assert.Len(t, result[0].Submodules, 0)
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }

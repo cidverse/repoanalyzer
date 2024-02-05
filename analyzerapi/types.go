@@ -65,6 +65,7 @@ const (
 	LanguageTypescript ProjectLanguage = "typescript"
 	LanguagePython     ProjectLanguage = "python"
 	LanguagePHP        ProjectLanguage = "php"
+	LanguageRust       ProjectLanguage = "rust"
 )
 
 type ProjectBuildSystem string
@@ -84,6 +85,7 @@ const (
 	BuildSystemMkdocs          ProjectBuildSystem = "mkdocs"
 	BuildSystemComposer        ProjectBuildSystem = "composer"
 	BuildSystemDotNet          ProjectBuildSystem = "dotnet"
+	BuildSystemCargo           ProjectBuildSystem = "cargo"
 )
 
 type ProjectBuildSystemSyntax string

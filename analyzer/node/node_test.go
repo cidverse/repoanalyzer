@@ -1,9 +1,9 @@
 package node
 
 import (
-	"github.com/cidverse/repoanalyzer/util"
-	"github.com/rs/zerolog/log"
 	"testing"
+
+	"github.com/cidverse/repoanalyzer/util"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 )
@@ -14,5 +14,7 @@ func TestAnalyzer_AnalyzeReact(t *testing.T) {
 	result := analyzer.Analyze(ctx)
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }

@@ -4,6 +4,7 @@ go 1.21
 
 require (
 	github.com/gosimple/slug v1.13.1
+	github.com/pelletier/go-toml/v2 v2.1.1
 	github.com/rs/zerolog v1.32.0
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06
 	github.com/stretchr/testify v1.8.4

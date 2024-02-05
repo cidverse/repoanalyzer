@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/cidverse/repoanalyzer/util"
-	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -22,7 +21,9 @@ func TestAnalyzer_AnalyzePythonPipfile(t *testing.T) {
 	assert.Equal(t, "default", string(result[0].BuildSystemSyntax))
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }
 
 func TestAnalyzer_AnalyzePythonPeotry(t *testing.T) {
@@ -37,7 +38,9 @@ func TestAnalyzer_AnalyzePythonPeotry(t *testing.T) {
 	assert.Equal(t, "default", string(result[0].BuildSystemSyntax))
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }
 
 func TestAnalyzer_AnalyzePythonRequirementsTXT(t *testing.T) {
@@ -52,7 +55,9 @@ func TestAnalyzer_AnalyzePythonRequirementsTXT(t *testing.T) {
 	assert.Equal(t, "default", string(result[0].BuildSystemSyntax))
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }
 
 func TestAnalyzer_AnalyzePythonSetuppy(t *testing.T) {
@@ -67,5 +72,7 @@ func TestAnalyzer_AnalyzePythonSetuppy(t *testing.T) {
 	assert.Equal(t, "default", string(result[0].BuildSystemSyntax))
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }

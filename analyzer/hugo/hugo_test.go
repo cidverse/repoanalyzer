@@ -1,9 +1,9 @@
 package hugo
 
 import (
-	"github.com/cidverse/repoanalyzer/util"
-	"github.com/rs/zerolog/log"
 	"testing"
+
+	"github.com/cidverse/repoanalyzer/util"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/stretchr/testify/assert"
@@ -20,5 +20,7 @@ func TestAnalyzer_AnalyzeHugo(t *testing.T) {
 	assert.Equal(t, "hugo", result[0].Name)
 
 	// print result
-	log.Info().Interface("result", result).Msg("output")
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
 }
