@@ -7,7 +7,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.1.1
 	github.com/rs/zerolog v1.32.0
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	golang.org/x/exp v0.0.0-20240119083558-1b970713d09a
 	golang.org/x/mod v0.15.0
 )
