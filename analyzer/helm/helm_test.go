@@ -3,14 +3,12 @@ package helm
 import (
 	"testing"
 
-	"github.com/cidverse/repoanalyzer/util"
-
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAnalyzer_AnalyzeHugo(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "helm"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "helm"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
 

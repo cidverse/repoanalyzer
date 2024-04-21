@@ -4,12 +4,11 @@ import (
 	"testing"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
-	"github.com/cidverse/repoanalyzer/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAnalyzer_AnalyzeMkdocs(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "mkdocs"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "mkdocs"))
 
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
@@ -27,7 +26,7 @@ func TestAnalyzer_AnalyzeMkdocs(t *testing.T) {
 }
 
 func TestAnalyzer_AnalyzeTechdocs(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "techdocs"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "techdocs"))
 
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)

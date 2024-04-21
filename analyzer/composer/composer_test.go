@@ -4,12 +4,11 @@ import (
 	"testing"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
-	"github.com/cidverse/repoanalyzer/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAnalyzer_AnalyzeComposer(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "composer"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "composer"))
 
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)

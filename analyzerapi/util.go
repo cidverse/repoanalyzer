@@ -1,55 +1,29 @@
 package analyzerapi
 
 import (
-	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 
-	"github.com/rs/zerolog/log"
+	"github.com/cidverse/cidverseutils/filesystem"
 	ignore "github.com/sabhiram/go-gitignore"
+	"golang.org/x/exp/slog"
 )
 
 func GetAnalyzerContext(projectDir string) AnalyzerContext {
 	// respect gitignore
 	ignoreMatcher := ProcessIgnoreFiles([]string{filepath.Join(projectDir, ".gitignore"), filepath.Join(projectDir, ".cidignore")})
 
-	// files
-	var files []string
-	filesByExtension := make(map[string][]string)
-	var filesWithoutExtension []string
-
-	err := filepath.WalkDir(projectDir, func(path string, d fs.DirEntry, err error) error {
-		// check for directory skip
-		if err != nil {
-			log.Warn().Err(err).Str("path", projectDir).Msg("output")
-			return nil
-		}
-
-		if d.IsDir() {
-			if d.Name() == ".git" || ignoreMatcher.MatchesPath(path) {
-				return filepath.SkipDir
-			}
-		} else {
-			if ignoreMatcher.MatchesPath(path) {
-				return nil
-			}
-
-			files = append(files, path)
-			splitByExt := strings.SplitN(d.Name(), ".", 2)
-			if len(splitByExt) == 2 {
-				filesByExtension[splitByExt[1]] = append(filesByExtension[splitByExt[1]], path)
-			} else {
-				filesWithoutExtension = append(filesWithoutExtension, path)
-			}
-		}
-
-		return nil
+	files, err := filesystem.FindFiles(projectDir, func(absPath string, name string) bool {
+		return ignoreMatcher.MatchesPath(absPath)
+	}, func(absPath string, name string) bool {
+		return true
 	})
 	if err != nil {
-		log.Fatal().Err(err).Str("path", projectDir).Msg("failed to get directory list")
+		slog.Error("failed to get directory list", err, slog.String("path", projectDir))
 	}
+	filesByExtension := filesystem.GenerateFileMapByDeepExtension(files)
 
 	// sorting
 	sort.Slice(files, func(i, j int) bool {
@@ -58,10 +32,9 @@ func GetAnalyzerContext(projectDir string) AnalyzerContext {
 
 	// result
 	return AnalyzerContext{
-		ProjectDir:            projectDir,
-		Files:                 files,
-		FilesByExtension:      filesByExtension,
-		FilesWithoutExtension: filesWithoutExtension,
+		ProjectDir:       projectDir,
+		Files:            files,
+		FilesByExtension: filesByExtension,
 	}
 }
 

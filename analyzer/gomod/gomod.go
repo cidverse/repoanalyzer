@@ -3,8 +3,7 @@ package gomod
 import (
 	"path/filepath"
 
-	"github.com/cidverse/repoanalyzer/util"
-
+	"github.com/cidverse/cidverseutils/filesystem"
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
 	"golang.org/x/mod/modfile"
@@ -25,7 +24,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 		// detect build system syntax
 		if filename == "go.mod" {
 			// parse go.mod
-			contentBytes, contentReadErr := util.GetFileBytes(file)
+			contentBytes, contentReadErr := filesystem.GetFileBytes(file)
 			if contentReadErr != nil {
 				continue
 			}

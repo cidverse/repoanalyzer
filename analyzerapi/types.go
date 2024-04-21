@@ -121,7 +121,9 @@ type AnalyzerContext struct {
 
 	// FilesByExtension contains all files by extension
 	FilesByExtension map[string][]string `json:"files_by_extension"`
+}
 
-	// FilesWithoutExtension contains all files without an extension
-	FilesWithoutExtension []string `json:"files_without_extension"`
+func (ctx *AnalyzerContext) ContainsFile(extension string) bool {
+	_, ok := ctx.FilesByExtension[extension]
+	return ok
 }

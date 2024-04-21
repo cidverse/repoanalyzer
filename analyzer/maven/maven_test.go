@@ -4,12 +4,11 @@ import (
 	"testing"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
-	"github.com/cidverse/repoanalyzer/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAnalyzer_AnalyzeMaven(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "maven"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "maven"))
 
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)

@@ -61,17 +61,17 @@ func AnalyzeProject(projectDir string, path string) []*analyzerapi.ProjectModule
 
 func initAnalyzers() {
 	analyzerapi.Analyzers = append(analyzerapi.Analyzers,
+		cargo.Analyzer{},
+		composer.Analyzer{},
 		container.Analyzer{},
+		dotnet.Analyzer{},
 		gomod.Analyzer{},
 		gradle.Analyzer{},
-		maven.Analyzer{},
 		helm.Analyzer{},
 		hugo.Analyzer{},
+		maven.Analyzer{},
+		mkdocs.Analyzer{},
 		node.Analyzer{},
 		python.Analyzer{},
-		mkdocs.Analyzer{},
-		dotnet.Analyzer{},
-		composer.Analyzer{},
-		cargo.Analyzer{},
 	)
 }

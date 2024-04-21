@@ -3,14 +3,13 @@ package python
 import (
 	"testing"
 
-	"github.com/cidverse/repoanalyzer/util"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 )
 
 func TestAnalyzer_AnalyzePythonPipfile(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "python-pipfile"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "python-pipfile"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
 
@@ -27,7 +26,7 @@ func TestAnalyzer_AnalyzePythonPipfile(t *testing.T) {
 }
 
 func TestAnalyzer_AnalyzePythonPeotry(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "python-poetry"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "python-poetry"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
 
@@ -44,7 +43,7 @@ func TestAnalyzer_AnalyzePythonPeotry(t *testing.T) {
 }
 
 func TestAnalyzer_AnalyzePythonRequirementsTXT(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "python-requirementstxt"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "python-requirementstxt"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
 
@@ -61,7 +60,7 @@ func TestAnalyzer_AnalyzePythonRequirementsTXT(t *testing.T) {
 }
 
 func TestAnalyzer_AnalyzePythonSetuppy(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "python-setuppy"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "python-setuppy"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
 

@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/cidverse/repoanalyzer/util"
+	"github.com/cidverse/cidverseutils/filesystem"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/exp/slices"
 
@@ -57,7 +57,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 		filename := filepath.Base(file)
 
 		if strings.HasSuffix(filename, ".sh") {
-			content, contentErr := util.GetFileContent(file)
+			content, contentErr := filesystem.GetFileContent(file)
 			if contentErr != nil {
 				log.Warn().Str("file", file).Msg("failed to read file content")
 			} else if strings.Contains(content, "buildah from") {

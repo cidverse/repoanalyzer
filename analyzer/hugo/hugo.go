@@ -3,8 +3,7 @@ package hugo
 import (
 	"path/filepath"
 
-	"github.com/cidverse/repoanalyzer/util"
-
+	"github.com/cidverse/cidverseutils/filesystem"
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
 )
@@ -23,7 +22,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 		filename := filepath.Base(file)
 		if filename == "config.toml" || filename == "config.yaml" {
 			hugoDir := filepath.Dir(file)
-			if util.DirectoryExists(filepath.Join(hugoDir, "content")) {
+			if filesystem.DirectoryExists(filepath.Join(hugoDir, "content")) {
 				// module
 				module := analyzerapi.ProjectModule{
 					RootDirectory:     ctx.ProjectDir,

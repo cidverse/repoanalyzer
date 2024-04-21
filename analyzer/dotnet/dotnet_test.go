@@ -4,12 +4,11 @@ import (
 	"testing"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
-	"github.com/cidverse/repoanalyzer/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAnalyzer_AnalyzeVisualStudioSolution(t *testing.T) {
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "dotnet"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "dotnet"))
 
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)

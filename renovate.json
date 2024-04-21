@@ -6,8 +6,7 @@
   ],
   "baseBranches": ["main"],
   "ignorePaths": [
-    ".github/workflows/cid.yml",
-    ".github/workflows/cid-pullrequest.yml",
+    ".github/workflows/cid**",
     "**/testdata/**",
     "**/examples/**"
   ]

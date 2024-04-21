@@ -5,13 +5,12 @@ import (
 	"testing"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
-	"github.com/cidverse/repoanalyzer/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGradleAnalyzer_AnalyzeGroovy(t *testing.T) {
 	_ = os.Setenv("REPOANAYLZER_DEBUG", "true")
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "gradle-groovy"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "gradle-groovy"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
 
@@ -40,7 +39,7 @@ func TestGradleAnalyzer_AnalyzeGroovy(t *testing.T) {
 
 func TestGradleAnalyzer_AnalyzeKotlin(t *testing.T) {
 	_ = os.Setenv("REPOANAYLZER_DEBUG", "true")
-	ctx := analyzerapi.GetAnalyzerContext(util.GetTestDataDir(t, "gradle-kotlin"))
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "gradle-kotlin"))
 	analyzer := Analyzer{}
 	result := analyzer.Analyze(ctx)
 
