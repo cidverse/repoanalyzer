@@ -31,6 +31,9 @@ func ParseBuildGradleKotlin(file string) (BuildGradle, error) {
 			languages[analyzerapi.LanguageJava] = parseJavaVersionOrDefault(buildGradleStr, "21.0.0")
 		}
 	}
+	if len(languages) == 0 { // no plugins found, default to java
+		languages[analyzerapi.LanguageJava] = parseJavaVersionOrDefault(buildGradleStr, "21.0.0")
+	}
 
 	// dependencies
 	depRegex := regexp.MustCompile(`(implementation|compile)\s*\((['"])([^:]+):([^:]+):([^:]+)(['"])\)`)
