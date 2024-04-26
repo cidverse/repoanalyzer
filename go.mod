@@ -1,9 +1,9 @@
 module github.com/cidverse/repoanalyzer
 
-go 1.22
+go 1.21
 
 require (
-	github.com/cidverse/cidverseutils/filesystem v0.0.0-20240421215032-ae9bd53b804a
+	github.com/cidverse/cidverseutils/filesystem v0.0.0-20240426222640-9d7a9ba21c1b
 	github.com/gosimple/slug v1.14.0
 	github.com/pelletier/go-toml/v2 v2.2.1
 	github.com/rs/zerolog v1.32.0
