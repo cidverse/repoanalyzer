@@ -66,6 +66,7 @@ const (
 	LanguagePython     ProjectLanguage = "python"
 	LanguagePHP        ProjectLanguage = "php"
 	LanguageRust       ProjectLanguage = "rust"
+	LanguageNix        ProjectLanguage = "nix"
 )
 
 type ProjectBuildSystem string
@@ -86,17 +87,19 @@ const (
 	BuildSystemComposer        ProjectBuildSystem = "composer"
 	BuildSystemDotNet          ProjectBuildSystem = "dotnet"
 	BuildSystemCargo           ProjectBuildSystem = "cargo"
+	BuildSystemNix             ProjectBuildSystem = "nix"
 )
 
 type ProjectBuildSystemSyntax string
 
 const (
-	BuildSystemSyntaxDefault ProjectBuildSystemSyntax = "default"
-	GradleGroovyDSL          ProjectBuildSystemSyntax = "groovy"
-	GradleKotlinDSL          ProjectBuildSystemSyntax = "kotlin"
-	ContainerFile            ProjectBuildSystemSyntax = "containerfile"
-	ContainerBuildahScript   ProjectBuildSystemSyntax = "buildah-script"
-	MkdocsTechdocs           ProjectBuildSystemSyntax = "mkdocs-techdocs"
+	BuildSystemSyntaxDefault                ProjectBuildSystemSyntax = "default"
+	BuildSystemSyntaxGradleGroovyDSL        ProjectBuildSystemSyntax = "groovy"
+	BuildSystemSyntaxGradleKotlinDSL        ProjectBuildSystemSyntax = "kotlin"
+	BuildSystemSyntaxContainerFile          ProjectBuildSystemSyntax = "containerfile"
+	BuildSystemSyntaxContainerBuildahScript ProjectBuildSystemSyntax = "buildah-script"
+	BuildSystemSyntaxMkdocsTechdocs         ProjectBuildSystemSyntax = "mkdocs-techdocs"
+	BuildSystemSyntaxNixFlake               ProjectBuildSystemSyntax = "flake"
 )
 
 // ProjectDependency contains dependency information

@@ -25,7 +25,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 		var buildSystemSyntax analyzerapi.ProjectBuildSystemSyntax
 		var buildGradle BuildGradle
 		if filename == "build.gradle" {
-			buildSystemSyntax = analyzerapi.GradleGroovyDSL
+			buildSystemSyntax = analyzerapi.BuildSystemSyntaxGradleGroovyDSL
 			var buildGradleErr error
 			buildGradle, buildGradleErr = ParseBuildGradleGroovy(file)
 			if buildGradleErr != nil {
@@ -34,7 +34,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 				}
 			}
 		} else if filename == "build.gradle.kts" {
-			buildSystemSyntax = analyzerapi.GradleKotlinDSL
+			buildSystemSyntax = analyzerapi.BuildSystemSyntaxGradleKotlinDSL
 			var buildGradleErr error
 			buildGradle, buildGradleErr = ParseBuildGradleKotlin(file)
 			if buildGradleErr != nil {

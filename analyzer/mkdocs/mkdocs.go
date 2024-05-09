@@ -32,7 +32,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 					Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
 					Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 					BuildSystem:       analyzerapi.BuildSystemMkdocs,
-					BuildSystemSyntax: analyzerapi.MkdocsTechdocs,
+					BuildSystemSyntax: analyzerapi.BuildSystemSyntaxMkdocsTechdocs,
 					Language:          nil,
 					Dependencies:      nil,
 					Submodules:        nil,

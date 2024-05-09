@@ -14,6 +14,7 @@ import (
 	"github.com/cidverse/repoanalyzer/analyzer/hugo"
 	"github.com/cidverse/repoanalyzer/analyzer/maven"
 	"github.com/cidverse/repoanalyzer/analyzer/mkdocs"
+	"github.com/cidverse/repoanalyzer/analyzer/nix"
 	"github.com/cidverse/repoanalyzer/analyzer/node"
 	"github.com/cidverse/repoanalyzer/analyzer/python"
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -71,6 +72,7 @@ func initAnalyzers() {
 		hugo.Analyzer{},
 		maven.Analyzer{},
 		mkdocs.Analyzer{},
+		nix.Analyzer{},
 		node.Analyzer{},
 		python.Analyzer{},
 	)

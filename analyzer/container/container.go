@@ -28,7 +28,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 		if filename == "Dockerfile" || filename == "Containerfile" || strings.HasSuffix(filename, ".Dockerfile") || strings.HasSuffix(filename, ".Containerfile") {
 			// add new module or append file to existing module
 			moduleIdx := slices.IndexFunc(result, func(m *analyzerapi.ProjectModule) bool {
-				return m.Name == filepath.Base(filepath.Dir(file)) && m.BuildSystem == analyzerapi.BuildSystemContainer && m.BuildSystemSyntax == analyzerapi.ContainerFile
+				return m.Name == filepath.Base(filepath.Dir(file)) && m.BuildSystem == analyzerapi.BuildSystemContainer && m.BuildSystemSyntax == analyzerapi.BuildSystemSyntaxContainerFile
 			})
 			if moduleIdx == -1 {
 				module := analyzerapi.ProjectModule{
@@ -38,7 +38,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 					Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
 					Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 					BuildSystem:       analyzerapi.BuildSystemContainer,
-					BuildSystemSyntax: analyzerapi.ContainerFile,
+					BuildSystemSyntax: analyzerapi.BuildSystemSyntaxContainerFile,
 					Language:          nil,
 					Dependencies:      nil,
 					Submodules:        nil,
@@ -68,7 +68,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 					Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
 					Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 					BuildSystem:       analyzerapi.BuildSystemContainer,
-					BuildSystemSyntax: analyzerapi.ContainerBuildahScript,
+					BuildSystemSyntax: analyzerapi.BuildSystemSyntaxContainerBuildahScript,
 					Language:          nil,
 					Dependencies:      nil,
 					Submodules:        nil,
