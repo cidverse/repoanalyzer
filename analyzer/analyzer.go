@@ -1,4 +1,4 @@
-package repoanalyzer
+package analyzer
 
 import (
 	"strings"
@@ -12,11 +12,13 @@ type RepoAnalyzer interface {
 	Add(scanner analyzerapi.Scanner)
 	List() []analyzerapi.Scanner
 	Scan(path string) []*analyzerapi.ProjectModule
+	EnableCache(enable bool)
 }
 
 type Analyzer struct {
-	scanners []analyzerapi.Scanner
-	cache    map[string][]*analyzerapi.ProjectModule
+	scanners    []analyzerapi.Scanner
+	enableCache bool
+	cache       map[string][]*analyzerapi.ProjectModule
 }
 
 func (a Analyzer) Add(analyzer analyzerapi.Scanner) {
@@ -28,8 +30,10 @@ func (a Analyzer) List() []analyzerapi.Scanner {
 }
 
 func (a Analyzer) Scan(dir string) []*analyzerapi.ProjectModule {
-	if _, ok := a.cache[dir]; ok {
-		return a.cache[dir]
+	if a.enableCache {
+		if _, ok := a.cache[dir]; ok {
+			return a.cache[dir]
+		}
 	}
 
 	start := time.Now()
@@ -55,23 +59,31 @@ func (a Analyzer) Scan(dir string) []*analyzerapi.ProjectModule {
 
 	slog.Debug("repo analyzer complete", slog.String("path", dir), slog.Int("module_count", len(allModules)), slog.String("modules", strings.Join(allModuleNames, ",")), slog.String("duration", time.Since(start).String()), slog.Int("file_count", len(ctx.Files)))
 
-	a.cache[dir] = allModules
+	if a.enableCache {
+		a.cache[dir] = allModules
+	}
 	return allModules
+}
+
+func (a Analyzer) EnableCache(enable bool) {
+	a.enableCache = enable
 }
 
 // NewAnalyzer returns a new analyzer with all available modules
 func NewAnalyzer() Analyzer {
 	return Analyzer{
-		scanners: AllScanners,
-		cache:    make(map[string][]*analyzerapi.ProjectModule),
+		scanners:    AllScanners,
+		enableCache: false,
+		cache:       make(map[string][]*analyzerapi.ProjectModule),
 	}
 }
 
 // NewCustomAnalyzer returns an analyzer without any pre-configured modules
 func NewCustomAnalyzer() Analyzer {
 	return Analyzer{
-		scanners: []analyzerapi.Scanner{},
-		cache:    make(map[string][]*analyzerapi.ProjectModule),
+		scanners:    []analyzerapi.Scanner{},
+		enableCache: false,
+		cache:       make(map[string][]*analyzerapi.ProjectModule),
 	}
 }
 

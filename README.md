@@ -13,12 +13,23 @@ go get -u github.com/cidverse/repoanalyzer
 __Example__
 
 ```go
-func main() {
-    analyzer := repoanalyzer.NewAnalyzer()
-    result := analyzer.Scan("/my-project")
-    for k, v := range result {
-        fmt.Printf("MODULE %d: %+v\n", k, v)
-    }
+result := analyzer.ScanDirectory("/my-project")
+for k, v := range result {
+    fmt.Printf("MODULE %d: %+v\n", k, v)
+}
+```
+
+__Custom Example__
+
+You can add your own scanners and enable result caching.
+
+```go
+myAnalyzer := analyzer.NewAnalyzer()
+myAnalyzer.EnableCache(true)
+// myAnalyzer.Add(yourCustomScanner)
+result := myAnalyzer.Scan("/my-project")
+for k, v := range result {
+    fmt.Printf("MODULE %d: %+v\n", k, v)
 }
 ```
 
