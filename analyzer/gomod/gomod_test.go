@@ -15,7 +15,7 @@ func TestGoModAnalyzer_Analyze(t *testing.T) {
 
 	ctx := analyzerapi.GetAnalyzerContext(filepath.Join(filepath.Dir(cwd), "..", "testdata", "gomod"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)

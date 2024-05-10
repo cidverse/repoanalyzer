@@ -13,7 +13,7 @@ func (a Analyzer) GetName() string {
 	return "nix"
 }
 
-func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
+func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
 	var result []*analyzerapi.ProjectModule
 
 	for _, file := range ctx.FilesByExtension["nix"] {

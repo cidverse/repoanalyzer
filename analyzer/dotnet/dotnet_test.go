@@ -11,7 +11,7 @@ func TestAnalyzer_AnalyzeVisualStudioSolution(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "dotnet"))
 
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)

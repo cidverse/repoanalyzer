@@ -11,7 +11,7 @@ func TestAnalyzer_AnalyzeMkdocs(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "mkdocs"))
 
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)
@@ -29,7 +29,7 @@ func TestAnalyzer_AnalyzeTechdocs(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "techdocs"))
 
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)

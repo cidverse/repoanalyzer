@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/cidverse/cidverseutils/filesystem"
-	"github.com/rs/zerolog/log"
 	"golang.org/x/exp/slices"
+	"golang.org/x/exp/slog"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
@@ -18,7 +18,7 @@ func (a Analyzer) GetName() string {
 	return "container"
 }
 
-func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
+func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
 	var result []*analyzerapi.ProjectModule
 
 	// dockerfile
@@ -59,7 +59,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 		if strings.HasSuffix(filename, ".sh") {
 			content, contentErr := filesystem.GetFileContent(file)
 			if contentErr != nil {
-				log.Warn().Str("file", file).Msg("failed to read file content")
+				slog.Warn("failed to read file content", slog.String("file", file))
 			} else if strings.Contains(content, "buildah from") {
 				module := analyzerapi.ProjectModule{
 					RootDirectory:     ctx.ProjectDir,

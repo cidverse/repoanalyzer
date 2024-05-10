@@ -10,7 +10,7 @@ import (
 func TestAnalyzer_AnalyzeNixFlake(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "nix-flake"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)

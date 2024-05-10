@@ -10,7 +10,7 @@ import (
 func TestAnalyzer_AnalyzeHugo(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "helm"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)

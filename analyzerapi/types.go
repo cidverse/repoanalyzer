@@ -1,14 +1,14 @@
 package analyzerapi
 
-var Analyzers []Analyzer
+var Analyzers []Scanner
 
-// Analyzer is the interface that needs to be implemented by all analyzers
-type Analyzer interface {
+// Scanner is the interface that needs to be implemented by all analyzers
+type Scanner interface {
 	// GetName returns the name of the analyzer
 	GetName() string
 
 	// Analyze will retrieve information about the project
-	Analyze(ctx AnalyzerContext) []*ProjectModule
+	Scan(ctx AnalyzerContext) []*ProjectModule
 }
 
 // ProjectModule contains information about project modules
@@ -67,11 +67,14 @@ const (
 	LanguagePHP        ProjectLanguage = "php"
 	LanguageRust       ProjectLanguage = "rust"
 	LanguageNix        ProjectLanguage = "nix"
+	LanguageOpenAPI    ProjectLanguage = "openapi"
+	LanguageAsyncAPI   ProjectLanguage = "asyncapi"
 )
 
 type ProjectBuildSystem string
 
 const (
+	BuildSystemDefault         ProjectBuildSystem = "default"
 	BuildSystemGradle          ProjectBuildSystem = "gradle"
 	BuildSystemMaven           ProjectBuildSystem = "maven"
 	BuildSystemGoMod           ProjectBuildSystem = "gomod"

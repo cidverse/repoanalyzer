@@ -9,7 +9,7 @@ import (
 func TestAnalyzer_AnalyzeReact(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "react"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// print result
 	for i, item := range result {

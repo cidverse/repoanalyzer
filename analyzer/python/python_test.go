@@ -11,7 +11,7 @@ import (
 func TestAnalyzer_AnalyzePythonPipfile(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "python-pipfile"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)
@@ -28,7 +28,7 @@ func TestAnalyzer_AnalyzePythonPipfile(t *testing.T) {
 func TestAnalyzer_AnalyzePythonPeotry(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "python-poetry"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)
@@ -45,7 +45,7 @@ func TestAnalyzer_AnalyzePythonPeotry(t *testing.T) {
 func TestAnalyzer_AnalyzePythonRequirementsTXT(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "python-requirementstxt"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)
@@ -62,7 +62,7 @@ func TestAnalyzer_AnalyzePythonRequirementsTXT(t *testing.T) {
 func TestAnalyzer_AnalyzePythonSetuppy(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "python-setuppy"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)

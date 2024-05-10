@@ -12,7 +12,7 @@ func TestGradleAnalyzer_AnalyzeGroovy(t *testing.T) {
 	_ = os.Setenv("REPOANAYLZER_DEBUG", "true")
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "gradle-groovy"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)
@@ -41,7 +41,7 @@ func TestGradleAnalyzer_AnalyzeKotlin(t *testing.T) {
 	_ = os.Setenv("REPOANAYLZER_DEBUG", "true")
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "gradle-kotlin"))
 	analyzer := Analyzer{}
-	result := analyzer.Analyze(ctx)
+	result := analyzer.Scan(ctx)
 
 	// module
 	assert.Len(t, result, 1)

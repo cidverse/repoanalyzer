@@ -15,7 +15,7 @@ func (a Analyzer) GetName() string {
 	return "mkdocs"
 }
 
-func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
+func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
 	var result []*analyzerapi.ProjectModule
 
 	for _, file := range append(ctx.FilesByExtension["yml"], ctx.FilesByExtension["yaml"]...) {

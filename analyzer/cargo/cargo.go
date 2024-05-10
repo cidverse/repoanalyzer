@@ -5,7 +5,7 @@ import (
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
-	"github.com/rs/zerolog/log"
+	"golang.org/x/exp/slog"
 )
 
 type Analyzer struct{}
@@ -14,7 +14,7 @@ func (a Analyzer) GetName() string {
 	return "cargo"
 }
 
-func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
+func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
 	var result []*analyzerapi.ProjectModule
 
 	for _, file := range ctx.FilesByExtension["toml"] {
@@ -23,7 +23,7 @@ func (a Analyzer) Analyze(ctx analyzerapi.AnalyzerContext) []*analyzerapi.Projec
 			// parse Cargo.toml
 			cargoFile, err := parseCargoFile(file)
 			if err != nil {
-				log.Debug().Err(err).Msg("failed to parse Cargo.toml")
+				slog.Debug("failed to parse Cargo.toml", slog.String("file", file), slog.String("err", err.Error()))
 			}
 
 			// module
