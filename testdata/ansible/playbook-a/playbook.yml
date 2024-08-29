@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tags:
+    - example
+  roles:
+    - role: facts
+  vars:
+    # user
+    user: "{{ lookup('env','USER') }}"
+    # proxy
+    proxy_env:
+      http_proxy: "{{ lookup('env','http_proxy') }}"
+      https_proxy: "{{ lookup('env','https_proxy') }}"
+      no_proxy: "{{ lookup('env','no_proxy') }}"
+    # paths
+    paths:
+      bin: "{{ ansible_env.HOME }}/.local/bin"
+      share: "{{ ansible_env.HOME }}/.local/share"

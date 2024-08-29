@@ -91,6 +91,7 @@ const (
 	BuildSystemDotNet          ProjectBuildSystem = "dotnet"
 	BuildSystemCargo           ProjectBuildSystem = "cargo"
 	BuildSystemNix             ProjectBuildSystem = "nix"
+	BuildSystemAnsible         ProjectBuildSystem = "ansible"
 )
 
 type ProjectBuildSystemSyntax string
