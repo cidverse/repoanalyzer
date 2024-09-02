@@ -10,6 +10,7 @@ import (
 	"github.com/cidverse/repoanalyzer/modules/gomod"
 	"github.com/cidverse/repoanalyzer/modules/gradle"
 	"github.com/cidverse/repoanalyzer/modules/helm"
+	"github.com/cidverse/repoanalyzer/modules/helmfile"
 	"github.com/cidverse/repoanalyzer/modules/hugo"
 	"github.com/cidverse/repoanalyzer/modules/maven"
 	"github.com/cidverse/repoanalyzer/modules/mkdocs"
@@ -28,6 +29,7 @@ var AllScanners = []analyzerapi.Scanner{
 	gomod.Analyzer{},
 	gradle.Analyzer{},
 	helm.Analyzer{},
+	helmfile.Analyzer{},
 	hugo.Analyzer{},
 	maven.Analyzer{},
 	mkdocs.Analyzer{},
