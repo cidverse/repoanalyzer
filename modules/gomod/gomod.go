@@ -2,6 +2,7 @@ package gomod
 
 import (
 	"path/filepath"
+	"strings"
 
 	"github.com/cidverse/cidverseutils/filesystem"
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -28,13 +29,21 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			if contentReadErr != nil {
 				continue
 			}
-			goMod, goModParseError := modfile.ParseLax(file, contentBytes, nil)
+			goMod, goModParseError := modfile.Parse(file, contentBytes, nil)
 			if goModParseError != nil {
 				continue
 			}
 
 			// references
-			goVersion := goMod.Go.Version + ".0"
+			goVersion := goMod.Go.Version
+			if goMod.Toolchain != nil { // prefer toolchain version
+				goVersion = goMod.Toolchain.Name
+				goVersion = strings.TrimPrefix(goVersion, "go")
+				goVersion = strings.TrimSuffix(goVersion, "+auto")
+			}
+			if strings.Count(goVersion, ".") == 1 {
+				goVersion = goVersion + ".0"
+			}
 
 			// deps
 			var dependencies []analyzerapi.ProjectDependency
