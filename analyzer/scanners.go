@@ -2,6 +2,7 @@ package analyzer
 
 import (
 	"github.com/cidverse/repoanalyzer/analyzerapi"
+	"github.com/cidverse/repoanalyzer/modules/ansible"
 	"github.com/cidverse/repoanalyzer/modules/apispec"
 	"github.com/cidverse/repoanalyzer/modules/cargo"
 	"github.com/cidverse/repoanalyzer/modules/composer"
@@ -21,6 +22,7 @@ import (
 
 // AllScanners contains all available scanners
 var AllScanners = []analyzerapi.Scanner{
+	ansible.Analyzer{},
 	apispec.Analyzer{},
 	cargo.Analyzer{},
 	composer.Analyzer{},
