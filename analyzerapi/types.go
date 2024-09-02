@@ -28,11 +28,17 @@ type ProjectModule struct {
 	// Slug contains an url/folder name compatible name of the module
 	Slug string `json:"slug"`
 
-	// BuildSystem used in this project
+	// Type of the module
+	Type ModuleType `json:"type"`
+
+	// BuildSystem used in this project, only applies to modules of type build_system
 	BuildSystem ProjectBuildSystem `json:"build_system"`
 
-	// BuildSystemSyntax used in this project
+	// BuildSystemSyntax used in this project, only applies to modules of type build_system
 	BuildSystemSyntax ProjectBuildSystemSyntax `json:"build_system_syntax"`
+
+	// SpecificationType that was found, only applies to modules of type spec
+	SpecificationType SpecificationType `json:"specification_type"`
 
 	// Language of the project
 	Language map[ProjectLanguage]string `json:"language"`
@@ -54,6 +60,14 @@ type ProjectModule struct {
 type ProjectModuleDiscovery struct {
 	File string `json:"file"`
 }
+
+type ModuleType string
+
+const (
+	ModuleTypeBuildSystem ModuleType = "build_system" // e.g. Go Mo, Java, Python, Helm Charts, Ansible Playbooks, ...
+	ModuleTypeSpec        ModuleType = "spec"         // e.g. OpenAPI, AsyncAPI, ...
+	ModuleTypeDeployment  ModuleType = "deployment"   // e.g. Helm Deployment Configuration, Ansible Deployment Configuration, ...
+)
 
 type ProjectLanguage string
 
@@ -81,6 +95,7 @@ const (
 	BuildSystemNpm             ProjectBuildSystem = "npm"
 	BuildSystemHugo            ProjectBuildSystem = "hugo"
 	BuildSystemHelm            ProjectBuildSystem = "helm"
+	BuildSystemHelmfile        ProjectBuildSystem = "helmfile"
 	BuildSystemContainer       ProjectBuildSystem = "container"
 	BuildSystemRequirementsTXT ProjectBuildSystem = "python-requirements.txt"
 	BuildSystemPipfile         ProjectBuildSystem = "pipfile"
@@ -104,6 +119,13 @@ const (
 	BuildSystemSyntaxContainerBuildahScript ProjectBuildSystemSyntax = "buildah-script"
 	BuildSystemSyntaxMkdocsTechdocs         ProjectBuildSystemSyntax = "mkdocs-techdocs"
 	BuildSystemSyntaxNixFlake               ProjectBuildSystemSyntax = "flake"
+)
+
+type SpecificationType string
+
+const (
+	SpecificationTypeOpenAPI  SpecificationType = "openapi"
+	SpecificationTypeAsyncAPI SpecificationType = "asyncapi"
 )
 
 // ProjectDependency contains dependency information

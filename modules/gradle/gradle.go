@@ -57,6 +57,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			Name:              filepath.Base(filepath.Dir(file)),
 			Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
 			Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
+			Type:              analyzerapi.ModuleTypeBuildSystem,
 			BuildSystem:       analyzerapi.BuildSystemGradle,
 			BuildSystemSyntax: buildSystemSyntax,
 			Language:          buildGradle.Languages,

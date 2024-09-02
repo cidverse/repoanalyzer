@@ -15,8 +15,8 @@ func TestAnalyzer_AnalyzeOpenAPI(t *testing.T) {
 	// module
 	assert.Len(t, result, 1)
 	assert.Equal(t, "openapi3", result[0].Name)
-	assert.Equal(t, analyzerapi.BuildSystemDefault, result[0].BuildSystem)
-	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
+	assert.Equal(t, analyzerapi.ModuleTypeSpec, result[0].Type)
+	assert.Equal(t, analyzerapi.SpecificationTypeOpenAPI, result[0].SpecificationType)
 	assert.Contains(t, result[0].Language, analyzerapi.LanguageOpenAPI)
 	assert.Equal(t, "3.0.3", result[0].Language["openapi"])
 
@@ -34,8 +34,8 @@ func TestAnalyzer_AnalyzeAsyncApi(t *testing.T) {
 	// module
 	assert.Len(t, result, 1)
 	assert.Equal(t, "asyncapi", result[0].Name)
-	assert.Equal(t, analyzerapi.BuildSystemDefault, result[0].BuildSystem)
-	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
+	assert.Equal(t, analyzerapi.ModuleTypeSpec, result[0].Type)
+	assert.Equal(t, analyzerapi.SpecificationTypeAsyncAPI, result[0].SpecificationType)
 	assert.Contains(t, result[0].Language, analyzerapi.LanguageAsyncAPI)
 	assert.Equal(t, "3.0.0", result[0].Language["asyncapi"])
 

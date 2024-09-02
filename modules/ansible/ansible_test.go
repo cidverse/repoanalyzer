@@ -21,6 +21,7 @@ func TestAnsibleAnalyzer_Analyze(t *testing.T) {
 	assert.Len(t, result, 1)
 	assert.Len(t, result[0].Discovery, 1)
 	assert.Equal(t, "playbook-a", result[0].Name)
+	assert.Equal(t, analyzerapi.ModuleTypeBuildSystem, result[0].Type)
 	assert.Equal(t, analyzerapi.BuildSystemAnsible, result[0].BuildSystem)
 	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
 

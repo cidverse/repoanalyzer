@@ -16,6 +16,7 @@ func TestAnalyzer_AnalyzeComposer(t *testing.T) {
 	// module
 	assert.Len(t, result, 1)
 	assert.Equal(t, "composer", result[0].Name)
+	assert.Equal(t, analyzerapi.ModuleTypeBuildSystem, result[0].Type)
 	assert.Equal(t, "composer", string(result[0].BuildSystem))
 	assert.Equal(t, "default", string(result[0].BuildSystemSyntax))
 	assert.Equal(t, "8.0.0", result[0].Language[analyzerapi.LanguagePHP])

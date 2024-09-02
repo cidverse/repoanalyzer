@@ -16,6 +16,7 @@ func TestAnalyzer_AnalyzeCargo(t *testing.T) {
 	// module
 	assert.Len(t, result, 1)
 	assert.Equal(t, "cargo", result[0].Name)
+	assert.Equal(t, analyzerapi.ModuleTypeBuildSystem, result[0].Type)
 	assert.Equal(t, "cargo", string(result[0].BuildSystem))
 	assert.Equal(t, "default", string(result[0].BuildSystemSyntax))
 

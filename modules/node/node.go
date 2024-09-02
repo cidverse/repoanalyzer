@@ -54,6 +54,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				Name:              packageData.Name,
 				Slug:              slug.Make(packageData.Name),
 				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
+				Type:              analyzerapi.ModuleTypeBuildSystem,
 				BuildSystem:       analyzerapi.BuildSystemNpm,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          language,

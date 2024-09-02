@@ -21,6 +21,7 @@ func TestGoModAnalyzer_Analyze(t *testing.T) {
 	assert.Len(t, result, 1)
 	assert.Len(t, result[0].Discovery, 1)
 	assert.Equal(t, "github.com/dummymodule", result[0].Name)
+	assert.Equal(t, analyzerapi.ModuleTypeBuildSystem, result[0].Type)
 	assert.Equal(t, analyzerapi.BuildSystemGoMod, result[0].BuildSystem)
 	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
 	assert.NotNil(t, result[0].Language[analyzerapi.LanguageGolang])
