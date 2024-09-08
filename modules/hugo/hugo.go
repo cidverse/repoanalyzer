@@ -8,6 +8,7 @@ import (
 	"github.com/gosimple/slug"
 )
 
+// Analyzer for the Hugo Static Site Generator - https://gohugo.io/
 type Analyzer struct{}
 
 func (a Analyzer) GetName() string {

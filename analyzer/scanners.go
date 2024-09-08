@@ -18,6 +18,7 @@ import (
 	"github.com/cidverse/repoanalyzer/modules/nix"
 	"github.com/cidverse/repoanalyzer/modules/node"
 	"github.com/cidverse/repoanalyzer/modules/python"
+	"github.com/cidverse/repoanalyzer/modules/quartz"
 )
 
 // AllScanners contains all available scanners
@@ -38,4 +39,5 @@ var AllScanners = []analyzerapi.Scanner{
 	nix.Analyzer{},
 	node.Analyzer{},
 	python.Analyzer{},
+	quartz.Analyzer{},
 }
