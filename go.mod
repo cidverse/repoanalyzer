@@ -3,12 +3,12 @@ module github.com/cidverse/repoanalyzer
 go 1.22.0
 
 require (
-	github.com/cidverse/cidverseutils/filesystem v0.1.0
+	github.com/cidverse/cidverseutils/filesystem v0.1.1
 	github.com/gosimple/slug v1.14.0
 	github.com/pelletier/go-toml/v2 v2.2.3
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/exp v0.0.0-20240823005443-9b4947da3948
+	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0
 	golang.org/x/mod v0.21.0
 )
 
