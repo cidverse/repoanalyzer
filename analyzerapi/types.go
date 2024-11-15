@@ -127,6 +127,7 @@ type SpecificationType string
 const (
 	SpecificationTypeOpenAPI  SpecificationType = "openapi"
 	SpecificationTypeAsyncAPI SpecificationType = "asyncapi"
+	SpecificationTypeRenovate SpecificationType = "renovate"
 )
 
 // ProjectDependency contains dependency information

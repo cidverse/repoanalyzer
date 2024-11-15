@@ -8,12 +8,12 @@ require (
 	github.com/pelletier/go-toml/v2 v2.2.3
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0
+	golang.org/x/exp v0.0.0-20241108190413-2d47ceb2692f
 	golang.org/x/mod v0.22.0
 )
 
 require (
-	github.com/charlievieth/fastwalk v1.0.8 // indirect
+	github.com/charlievieth/fastwalk v1.0.9 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gosimple/unidecode v1.0.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
