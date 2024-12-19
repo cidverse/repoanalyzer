@@ -1,7 +1,7 @@
 github.com/charlievieth/fastwalk v1.0.9 h1:Odb92AfoReO3oFBfDGT5J+nwgzQPF/gWAw6E6/lkor0=
 github.com/charlievieth/fastwalk v1.0.9/go.mod h1:yGy1zbxog41ZVMcKA/i8ojXLFsuayX5VvwhQVoj9PBI=
-github.com/cidverse/cidverseutils/filesystem v0.1.1 h1:xKGk+QhoywNKUp0artHkRPPOl+C3aa6wujkHhjTB6sI=
-github.com/cidverse/cidverseutils/filesystem v0.1.1/go.mod h1:cpAd2RNrNiBRtDJS8S/VRiTD88kU9pxV1i5aA+AqUso=
+github.com/cidverse/cidverseutils/filesystem v0.1.2-0.20241219211714-77ae5cef4073 h1:Cu62vJAf2N2SWgYKiIntX5hXaDf+8H/A4GO1BuF+7OM=
+github.com/cidverse/cidverseutils/filesystem v0.1.2-0.20241219211714-77ae5cef4073/go.mod h1:LEluoAt92YcTw8ESiR6d0WK4X3P0GWRCxYm6iXl+8+g=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

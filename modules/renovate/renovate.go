@@ -20,10 +20,10 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 	renovateFiles := []string{
 		"renovate.json",
 		"renovate.json5",
-		".github/renovate.json",
-		".github/renovate.json5",
-		".gitlab/renovate.json",
-		".gitlab/renovate.json5",
+		//".github/renovate.json",
+		//".github/renovate.json5",
+		//".gitlab/renovate.json",
+		//".gitlab/renovate.json5",
 		".renovaterc",
 		".renovaterc.json",
 		".renovaterc.json5",
@@ -31,11 +31,15 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 	for _, file := range ctx.Files {
 		for _, renovateFile := range renovateFiles {
 			if strings.EqualFold(filepath.Base(file), renovateFile) || strings.Contains(file, renovateFile) {
+				name := filepath.Base(filepath.Dir(file))
+				if name == ".github" || name == ".gitlab" {
+					name = filepath.Base(ctx.ProjectDir)
+				}
 				module := analyzerapi.ProjectModule{
 					RootDirectory:     ctx.ProjectDir,
 					Directory:         filepath.Dir(file),
-					Name:              filepath.Base(filepath.Dir(file)),
-					Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
+					Name:              name,
+					Slug:              slug.Make(name),
 					Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 					Type:              analyzerapi.ModuleTypeSpec,
 					SpecificationType: analyzerapi.SpecificationTypeRenovate,
