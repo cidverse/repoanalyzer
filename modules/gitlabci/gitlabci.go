@@ -9,7 +9,7 @@ import (
 type Analyzer struct{}
 
 func (a Analyzer) GetName() string {
-	return string(analyzerapi.SpecificationTypeGitLabCI)
+	return string(analyzerapi.ConfigTypeGitLabCI)
 }
 
 func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
@@ -18,18 +18,18 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 	for _, file := range ctx.Files {
 		if strings.HasSuffix(file, "/.gitlab-ci.yml") {
 			module := analyzerapi.ProjectModule{
-				RootDirectory:     ctx.ProjectDir,
-				Directory:         ctx.ProjectDir,
-				Name:              "gitlab-ci",
-				Slug:              "gitlab-ci",
-				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
-				Type:              analyzerapi.ModuleTypeSpec,
-				SpecificationType: analyzerapi.SpecificationTypeGitLabCI,
-				Language:          nil,
-				Dependencies:      nil,
-				Submodules:        nil,
-				Files:             ctx.Files,
-				FilesByExtension:  ctx.FilesByExtension,
+				RootDirectory:    ctx.ProjectDir,
+				Directory:        ctx.ProjectDir,
+				Name:             "gitlab-ci",
+				Slug:             "gitlab-ci",
+				Discovery:        []analyzerapi.ProjectModuleDiscovery{{File: file}},
+				Type:             analyzerapi.ModuleTypeConfig,
+				ConfigType:       analyzerapi.ConfigTypeGitLabCI,
+				Language:         nil,
+				Dependencies:     nil,
+				Submodules:       nil,
+				Files:            ctx.Files,
+				FilesByExtension: ctx.FilesByExtension,
 			}
 			analyzerapi.AddModuleToResult(&result, &module)
 		}

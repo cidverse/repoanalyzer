@@ -7,6 +7,7 @@ import (
 	"github.com/cidverse/repoanalyzer/modules/cargo"
 	"github.com/cidverse/repoanalyzer/modules/composer"
 	"github.com/cidverse/repoanalyzer/modules/container"
+	"github.com/cidverse/repoanalyzer/modules/deploymentdotenv"
 	"github.com/cidverse/repoanalyzer/modules/dotnet"
 	"github.com/cidverse/repoanalyzer/modules/githubworkflow"
 	"github.com/cidverse/repoanalyzer/modules/gitlabci"
@@ -31,6 +32,9 @@ var AllScanners = []analyzerapi.Scanner{
 	cargo.Analyzer{},
 	composer.Analyzer{},
 	container.Analyzer{},
+	deploymentdotenv.Analyzer{
+		AllowedEnvironmentNames: []string{"dev", "development", "test", "stage", "staging", "production"},
+	},
 	dotnet.Analyzer{},
 	githubworkflow.Analyzer{},
 	gitlabci.Analyzer{},

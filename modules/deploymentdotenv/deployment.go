@@ -1,38 +1,43 @@
-package githubworkflow
+package deploymentdotenv
 
 import (
-	"path"
 	"path/filepath"
 	"strings"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
+	"github.com/gosimple/slug"
+	"golang.org/x/exp/slices"
 )
 
-type Analyzer struct{}
+type Analyzer struct {
+	AllowedEnvironmentNames []string
+}
 
 func (a Analyzer) GetName() string {
-	return string(analyzerapi.ConfigTypeGitHubWorkflow)
+	return string(analyzerapi.DeploymentTypeDotEnv)
 }
 
 func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
 	var result []*analyzerapi.ProjectModule
 
+	// find project files
 	for _, file := range ctx.Files {
 		filename := filepath.Base(file)
-		if !strings.HasPrefix(file, filepath.Join(ctx.ProjectDir, ".github", "workflows")) {
-			continue
-		}
 
-		if strings.HasSuffix(filename, ".yml") || strings.HasSuffix(filename, ".yaml") {
-			filenameNoExt := strings.TrimSuffix(filename, filepath.Ext(filename))
+		if strings.HasPrefix(filename, ".env-") && filepath.Dir(file) == ctx.ProjectDir {
+			env := strings.TrimPrefix(filename, ".env-")
+			if len(a.AllowedEnvironmentNames) > 0 && !slices.Contains(a.AllowedEnvironmentNames, env) {
+				continue
+			}
+
 			module := analyzerapi.ProjectModule{
 				RootDirectory:    ctx.ProjectDir,
-				Directory:        path.Join(ctx.ProjectDir, ".github", "workflows"),
-				Name:             "github-workflow-" + filenameNoExt,
-				Slug:             "github-workflow-" + filenameNoExt,
+				Directory:        filepath.Dir(file),
+				Name:             "deployment-" + env,
+				Slug:             slug.Make("deployment-" + env),
 				Discovery:        []analyzerapi.ProjectModuleDiscovery{{File: file}},
-				Type:             analyzerapi.ModuleTypeConfig,
-				ConfigType:       analyzerapi.ConfigTypeGitHubWorkflow,
+				Type:             analyzerapi.ModuleTypeDeployment,
+				DeploymentType:   analyzerapi.DeploymentTypeDotEnv,
 				Language:         nil,
 				Dependencies:     nil,
 				Submodules:       nil,

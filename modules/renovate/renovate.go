@@ -36,18 +36,18 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 					name = filepath.Base(ctx.ProjectDir)
 				}
 				module := analyzerapi.ProjectModule{
-					RootDirectory:     ctx.ProjectDir,
-					Directory:         filepath.Dir(file),
-					Name:              name,
-					Slug:              slug.Make(name),
-					Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
-					Type:              analyzerapi.ModuleTypeSpec,
-					SpecificationType: analyzerapi.SpecificationTypeRenovate,
-					Language:          nil,
-					Dependencies:      nil,
-					Submodules:        nil,
-					Files:             ctx.Files,
-					FilesByExtension:  ctx.FilesByExtension,
+					RootDirectory:    ctx.ProjectDir,
+					Directory:        filepath.Dir(file),
+					Name:             name,
+					Slug:             slug.Make(name),
+					Discovery:        []analyzerapi.ProjectModuleDiscovery{{File: file}},
+					Type:             analyzerapi.ModuleTypeConfig,
+					ConfigType:       analyzerapi.ConfigTypeRenovate,
+					Language:         nil,
+					Dependencies:     nil,
+					Submodules:       nil,
+					Files:            ctx.Files,
+					FilesByExtension: ctx.FilesByExtension,
 				}
 				analyzerapi.AddModuleToResult(&result, &module)
 			}

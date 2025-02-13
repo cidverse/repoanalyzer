@@ -7,7 +7,7 @@ type Scanner interface {
 	// GetName returns the name of the analyzer
 	GetName() string
 
-	// Analyze will retrieve information about the project
+	// Scan will retrieve information about the project
 	Scan(ctx AnalyzerContext) []*ProjectModule
 }
 
@@ -40,6 +40,12 @@ type ProjectModule struct {
 	// SpecificationType that was found, only applies to modules of type spec
 	SpecificationType SpecificationType `json:"specification_type"`
 
+	// ConfigType that was found, only applies to modules of type config
+	ConfigType ConfigType `json:"config_type"`
+
+	// DeploymentType that was found, only applies to modules of type deployment
+	DeploymentType DeploymentType `json:"deployment_type"`
+
 	// Language of the project
 	Language map[ProjectLanguage]string `json:"language"`
 
@@ -66,6 +72,7 @@ type ModuleType string
 const (
 	ModuleTypeBuildSystem ModuleType = "build_system" // e.g. Go Mo, Java, Python, Helm Charts, Ansible Playbooks, ...
 	ModuleTypeSpec        ModuleType = "spec"         // e.g. OpenAPI, AsyncAPI, ...
+	ModuleTypeConfig      ModuleType = "config"       // e.g. .env, .gitlab-ci.yml, ...
 	ModuleTypeDeployment  ModuleType = "deployment"   // e.g. Helm Deployment Configuration, Ansible Deployment Configuration, ...
 )
 
@@ -128,12 +135,22 @@ const (
 type SpecificationType string
 
 const (
-	SpecificationTypeOpenAPI        SpecificationType = "openapi"
-	SpecificationTypeAsyncAPI       SpecificationType = "asyncapi"
-	SpecificationTypeRenovate       SpecificationType = "renovate"
-	SpecificationTypeGitHubWorkflow SpecificationType = "github-workflow"
-	SpecificationTypeGitLabCI       SpecificationType = "gitlab-ci"
-	SpecificationTypeCIDDeployment  SpecificationType = "cid-deployment"
+	SpecificationTypeOpenAPI  SpecificationType = "openapi"
+	SpecificationTypeAsyncAPI SpecificationType = "asyncapi"
+)
+
+type ConfigType string
+
+const (
+	ConfigTypeRenovate       ConfigType = "renovate"
+	ConfigTypeGitHubWorkflow ConfigType = "github-workflow"
+	ConfigTypeGitLabCI       ConfigType = "gitlab-ci"
+)
+
+type DeploymentType string
+
+const (
+	DeploymentTypeDotEnv DeploymentType = "deployment-dotenv"
 )
 
 // ProjectDependency contains dependency information
