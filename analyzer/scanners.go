@@ -8,6 +8,8 @@ import (
 	"github.com/cidverse/repoanalyzer/modules/composer"
 	"github.com/cidverse/repoanalyzer/modules/container"
 	"github.com/cidverse/repoanalyzer/modules/dotnet"
+	"github.com/cidverse/repoanalyzer/modules/githubworkflow"
+	"github.com/cidverse/repoanalyzer/modules/gitlabci"
 	"github.com/cidverse/repoanalyzer/modules/gomod"
 	"github.com/cidverse/repoanalyzer/modules/gradle"
 	"github.com/cidverse/repoanalyzer/modules/helm"
@@ -30,6 +32,8 @@ var AllScanners = []analyzerapi.Scanner{
 	composer.Analyzer{},
 	container.Analyzer{},
 	dotnet.Analyzer{},
+	githubworkflow.Analyzer{},
+	gitlabci.Analyzer{},
 	gomod.Analyzer{},
 	gradle.Analyzer{},
 	helm.Analyzer{},

@@ -11,7 +11,7 @@ import (
 type Analyzer struct{}
 
 func (a Analyzer) GetName() string {
-	return "composer"
+	return string(analyzerapi.BuildSystemComposer)
 }
 
 func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {

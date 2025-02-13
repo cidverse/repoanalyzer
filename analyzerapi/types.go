@@ -128,9 +128,12 @@ const (
 type SpecificationType string
 
 const (
-	SpecificationTypeOpenAPI  SpecificationType = "openapi"
-	SpecificationTypeAsyncAPI SpecificationType = "asyncapi"
-	SpecificationTypeRenovate SpecificationType = "renovate"
+	SpecificationTypeOpenAPI        SpecificationType = "openapi"
+	SpecificationTypeAsyncAPI       SpecificationType = "asyncapi"
+	SpecificationTypeRenovate       SpecificationType = "renovate"
+	SpecificationTypeGitHubWorkflow SpecificationType = "github-workflow"
+	SpecificationTypeGitLabCI       SpecificationType = "gitlab-ci"
+	SpecificationTypeCIDDeployment  SpecificationType = "cid-deployment"
 )
 
 // ProjectDependency contains dependency information
