@@ -13,7 +13,7 @@ import (
 
 func GetAnalyzerContext(projectDir string) AnalyzerContext {
 	// respect gitignore
-	ignoreMatcher := ProcessIgnoreFiles([]string{filepath.Join(projectDir, ".gitignore"), filepath.Join(projectDir, ".cidignore")})
+	ignoreMatcher := ProcessIgnoreFiles([]string{filepath.Join(projectDir, ".gitignore"), filepath.Join(projectDir, ".cidignore")}, []string{".git", ".svn", ".hg"})
 
 	files, err := filesystem.FindFiles(projectDir, func(absPath string, name string) bool {
 		return ignoreMatcher.MatchesPath(absPath)
@@ -71,9 +71,7 @@ func AddModuleToResult(result *[]*ProjectModule, module *ProjectModule) {
 	}
 }
 
-func ProcessIgnoreFiles(files []string) *ignore.GitIgnore {
-	var ignoreLines []string
-
+func ProcessIgnoreFiles(files []string, ignoreLines []string) *ignore.GitIgnore {
 	for _, file := range files {
 		if _, err := os.Stat(file); err == nil {
 			content, contentErr := os.ReadFile(file)
