@@ -29,6 +29,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			}
 
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),
@@ -50,6 +51,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			}
 
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),
@@ -71,6 +73,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			}
 
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),

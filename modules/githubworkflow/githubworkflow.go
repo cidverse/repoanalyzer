@@ -26,6 +26,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		if strings.HasSuffix(filename, ".yml") || strings.HasSuffix(filename, ".yaml") {
 			filenameNoExt := strings.TrimSuffix(filename, filepath.Ext(filename))
 			module := analyzerapi.ProjectModule{
+				ID:               analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:    ctx.ProjectDir,
 				Directory:        path.Join(ctx.ProjectDir, ".github", "workflows"),
 				Name:             "github-workflow-" + filenameNoExt,

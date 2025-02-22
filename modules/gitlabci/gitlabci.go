@@ -18,6 +18,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 	for _, file := range ctx.Files {
 		if strings.HasSuffix(file, "/.gitlab-ci.yml") {
 			module := analyzerapi.ProjectModule{
+				ID:               analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:    ctx.ProjectDir,
 				Directory:        ctx.ProjectDir,
 				Name:             "gitlab-ci",

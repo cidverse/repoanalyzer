@@ -1,6 +1,6 @@
 # Repo Analyzer
 
-> go library to find all modules / languages / build-systems / specifications in a project
+> go library to discover various files of interest in a repository
 
 ## Usage (Library)
 

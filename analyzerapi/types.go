@@ -13,6 +13,9 @@ type Scanner interface {
 
 // ProjectModule contains information about project modules
 type ProjectModule struct {
+	// ID is a unique identifier for the module
+	ID string `json:"id"`
+
 	// RootDirectory stores the project root directory
 	RootDirectory string `json:"project_dir"`
 

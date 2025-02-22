@@ -11,7 +11,7 @@ import (
 type Analyzer struct{}
 
 func (a Analyzer) GetName() string {
-	return "container"
+	return string(analyzerapi.BuildSystemAnsible)
 }
 
 func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
@@ -22,6 +22,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 
 		if filename == "playbook.yml" || strings.HasSuffix(filename, "-playbook.yml") {
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),

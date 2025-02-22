@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/cidverse/cidverseutils/filesystem"
+	"github.com/gosimple/slug"
 	ignore "github.com/sabhiram/go-gitignore"
 	"golang.org/x/exp/slog"
 )
@@ -84,4 +85,12 @@ func ProcessIgnoreFiles(files []string, ignoreLines []string) *ignore.GitIgnore 
 	}
 
 	return ignore.CompileIgnoreLines(ignoreLines...)
+}
+
+func GetSlugFromPath(projectDir, file, analyzerName string) string {
+	relativePath, err := filepath.Rel(projectDir, file)
+	if err != nil {
+		return slug.Make(analyzerName + "-" + file)
+	}
+	return slug.Make(analyzerName + "-" + relativePath)
 }

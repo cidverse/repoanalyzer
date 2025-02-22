@@ -23,6 +23,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		// detect build system syntax
 		if filename == "requirements.txt" {
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),
@@ -40,6 +41,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			analyzerapi.AddModuleToResult(&result, &module)
 		} else if filename == "Pipfile" {
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),
@@ -57,6 +59,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			analyzerapi.AddModuleToResult(&result, &module)
 		} else if filename == "setup.py" {
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),
@@ -74,6 +77,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			analyzerapi.AddModuleToResult(&result, &module)
 		} else if filename == "pyproject.toml" {
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),

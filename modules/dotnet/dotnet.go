@@ -22,6 +22,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		filename := filepath.Base(file)
 		if strings.HasSuffix(filename, ".sln") {
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),
@@ -43,6 +44,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		filename := filepath.Base(file)
 		if strings.HasSuffix(filename, ".slnx") {
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),
@@ -66,6 +68,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		filename := filepath.Base(file)
 		if strings.HasSuffix(filename, ".csproj") {
 			module := analyzerapi.ProjectModule{
+				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
 				Name:              filepath.Base(filepath.Dir(file)),

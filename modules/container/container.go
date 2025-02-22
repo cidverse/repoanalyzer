@@ -32,6 +32,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			})
 			if moduleIdx == -1 {
 				module := analyzerapi.ProjectModule{
+					ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 					RootDirectory:     ctx.ProjectDir,
 					Directory:         filepath.Dir(file),
 					Name:              filepath.Base(filepath.Dir(file)),
@@ -63,6 +64,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				slog.Warn("failed to read file content", slog.String("file", file))
 			} else if strings.Contains(content, "buildah from") {
 				module := analyzerapi.ProjectModule{
+					ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 					RootDirectory:     ctx.ProjectDir,
 					Directory:         filepath.Dir(file),
 					Name:              filepath.Base(filepath.Dir(file)),

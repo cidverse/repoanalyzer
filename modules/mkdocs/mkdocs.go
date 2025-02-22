@@ -26,6 +26,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			if _, err := os.Stat(filepath.Join(mkdocsDir, "catalog-info.yaml")); err == nil {
 				// module
 				module := analyzerapi.ProjectModule{
+					ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 					RootDirectory:     ctx.ProjectDir,
 					Directory:         filepath.Dir(file),
 					Name:              filepath.Base(filepath.Dir(file)),
@@ -44,6 +45,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			} else if errors.Is(err, os.ErrNotExist) {
 				// module
 				module := analyzerapi.ProjectModule{
+					ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 					RootDirectory:     ctx.ProjectDir,
 					Directory:         filepath.Dir(file),
 					Name:              filepath.Base(filepath.Dir(file)),
