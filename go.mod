@@ -1,6 +1,8 @@
 module github.com/cidverse/repoanalyzer
 
-go 1.22.0
+go 1.23.0
+
+toolchain go1.24.1
 
 require (
 	github.com/cidverse/cidverseutils/filesystem v0.1.2-0.20241219211714-77ae5cef4073
@@ -9,7 +11,7 @@ require (
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20250210185358-939b2ce775ac
-	golang.org/x/mod v0.23.0
+	golang.org/x/mod v0.24.0
 )
 
 require (
