@@ -17,7 +17,8 @@ func TestAnalyzer_AnalyzeDeplyomentDotEnv(t *testing.T) {
 	assert.Equal(t, "deployment-dev", result[0].Name)
 	assert.Equal(t, "deployment-dev", result[0].Slug)
 	assert.Equal(t, analyzerapi.ModuleTypeDeployment, result[0].Type)
-	assert.Equal(t, analyzerapi.DeploymentTypeDotEnv, result[0].DeploymentType)
+	assert.Equal(t, analyzerapi.DeploymentSpecDotEnv, result[0].DeploymentSpec)
+	assert.Equal(t, "helm", result[0].DeploymentType)
 
 	// print result
 	for i, item := range result {

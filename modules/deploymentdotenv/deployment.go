@@ -1,6 +1,7 @@
 package deploymentdotenv
 
 import (
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -14,7 +15,7 @@ type Analyzer struct {
 }
 
 func (a Analyzer) GetName() string {
-	return string(analyzerapi.DeploymentTypeDotEnv)
+	return string(analyzerapi.DeploymentSpecDotEnv)
 }
 
 func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectModule {
@@ -30,6 +31,16 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				continue
 			}
 
+			content, err := os.ReadFile(file)
+			if err != nil {
+				continue
+			}
+			properties := parseDotEnvFile(content)
+			deploymentType := properties["DEPLOYMENT_TYPE"]
+			if deploymentType == "" {
+				continue
+			}
+
 			module := analyzerapi.ProjectModule{
 				ID:               analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:    ctx.ProjectDir,
@@ -38,7 +49,8 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				Slug:             slug.Make("deployment-" + env),
 				Discovery:        []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				Type:             analyzerapi.ModuleTypeDeployment,
-				DeploymentType:   analyzerapi.DeploymentTypeDotEnv,
+				DeploymentSpec:   analyzerapi.DeploymentSpecDotEnv,
+				DeploymentType:   deploymentType,
 				Language:         nil,
 				Dependencies:     nil,
 				Submodules:       nil,
@@ -47,6 +59,24 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			}
 			analyzerapi.AddModuleToResult(&result, &module)
 		}
+	}
+
+	return result
+}
+
+func parseDotEnvFile(content []byte) map[string]string {
+	result := make(map[string]string)
+
+	lines := strings.Split(string(content), "\n")
+	for _, line := range lines {
+		if strings.HasPrefix(line, "#") {
+			continue
+		}
+		parts := strings.SplitN(line, "=", 2)
+		if len(parts) != 2 {
+			continue
+		}
+		result[parts[0]] = parts[1]
 	}
 
 	return result
