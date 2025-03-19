@@ -121,7 +121,8 @@ const (
 type DeploymentSpec string
 
 const (
-	DeploymentSpecDotEnv DeploymentSpec = "deployment-dotenv"
+	DeploymentSpecDotEnv   DeploymentSpec = "deployment-dotenv"
+	DeploymentSpecHelmfile DeploymentSpec = "deployment-helmfile"
 )
 
 // ProjectDependency contains dependency information
