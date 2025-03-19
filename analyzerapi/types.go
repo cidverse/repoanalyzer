@@ -13,24 +13,25 @@ type Scanner interface {
 
 // ProjectModule contains information about project modules
 type ProjectModule struct {
-	ID                string                     `json:"id"`                  // ID is a unique identifier for the module
-	RootDirectory     string                     `json:"project_dir"`         // RootDirectory stores the project root directory
-	Directory         string                     `json:"module_dir"`          // Directory stores the module root directory
-	Discovery         []ProjectModuleDiscovery   `json:"discovery"`           // Discovery stores information on how this module was discovered
-	Name              string                     `json:"name"`                // Name stores the module name
-	Slug              string                     `json:"slug"`                // Slug contains an url/folder name compatible name of the module
-	Type              ModuleType                 `json:"type"`                // Type of the module
-	BuildSystem       ProjectBuildSystem         `json:"build_system"`        // BuildSystem used in this project, only applies to modules of type build_system
-	BuildSystemSyntax ProjectBuildSystemSyntax   `json:"build_system_syntax"` // BuildSystemSyntax used in this project, only applies to modules of type build_system
-	SpecificationType SpecificationType          `json:"specification_type"`  // SpecificationType that was found, only applies to modules of type spec
-	ConfigType        ConfigType                 `json:"config_type"`         // ConfigType that was found, only applies to modules of type config
-	DeploymentSpec    DeploymentSpec             `json:"deployment_spec"`     // DeploymentSpec is the type of spec describing the deployment, e.g. dotenv, ...
-	DeploymentType    string                     `json:"deployment_type"`     // DeploymentType is the type of deployment, e.g. ansible, helm, kustomize, ...
-	Language          map[ProjectLanguage]string `json:"language"`            // Language of the project
-	Dependencies      []ProjectDependency        `json:"dependencies"`        // Dependencies
-	Submodules        []*ProjectModule           `json:"submodules"`          // Submodules contains information about submodules
-	Files             []string                   `json:"files"`               // Files holds all project files
-	FilesByExtension  map[string][]string        `json:"-"`                   // FilesByExtension contains all files by extension
+	ID                    string                     `json:"id"`                     // ID is a unique identifier for the module
+	RootDirectory         string                     `json:"project_dir"`            // RootDirectory stores the project root directory
+	Directory             string                     `json:"module_dir"`             // Directory stores the module root directory
+	Discovery             []ProjectModuleDiscovery   `json:"discovery"`              // Discovery stores information on how this module was discovered
+	Name                  string                     `json:"name"`                   // Name stores the module name
+	Slug                  string                     `json:"slug"`                   // Slug contains an url/folder name compatible name of the module
+	Type                  ModuleType                 `json:"type"`                   // Type of the module
+	BuildSystem           ProjectBuildSystem         `json:"build_system"`           // BuildSystem used in this project, only applies to modules of type build_system
+	BuildSystemSyntax     ProjectBuildSystemSyntax   `json:"build_system_syntax"`    // BuildSystemSyntax used in this project, only applies to modules of type build_system
+	SpecificationType     SpecificationType          `json:"specification_type"`     // SpecificationType that was found, only applies to modules of type spec
+	ConfigType            ConfigType                 `json:"config_type"`            // ConfigType that was found, only applies to modules of type config
+	DeploymentSpec        DeploymentSpec             `json:"deployment_spec"`        // DeploymentSpec is the type of spec describing the deployment, e.g. dotenv, ...
+	DeploymentType        string                     `json:"deployment_type"`        // DeploymentType is the type of deployment, e.g. ansible, helm, kustomize, ...
+	DeploymentEnvironment string                     `json:"deployment_environment"` // DeploymentEnvironment is the environment the deployment is for, e.g. staging, production, ...
+	Language              map[ProjectLanguage]string `json:"language"`               // Language of the project
+	Dependencies          []ProjectDependency        `json:"dependencies"`           // Dependencies
+	Submodules            []*ProjectModule           `json:"submodules"`             // Submodules contains information about submodules
+	Files                 []string                   `json:"files"`                  // Files holds all project files
+	FilesByExtension      map[string][]string        `json:"-"`                      // FilesByExtension contains all files by extension
 }
 
 // ProjectModuleDiscovery contains info on the files used to discover the module

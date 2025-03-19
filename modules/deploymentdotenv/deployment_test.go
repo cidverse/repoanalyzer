@@ -14,11 +14,12 @@ func TestAnalyzer_AnalyzeDeplyomentDotEnv(t *testing.T) {
 
 	// module
 	assert.Len(t, result, 1)
-	assert.Equal(t, "deployment-dev", result[0].Name)
-	assert.Equal(t, "deployment-dev", result[0].Slug)
+	assert.Equal(t, "deployment-dotenv-dev", result[0].Name)
+	assert.Equal(t, "deployment-dotenv-dev", result[0].Slug)
 	assert.Equal(t, analyzerapi.ModuleTypeDeployment, result[0].Type)
 	assert.Equal(t, analyzerapi.DeploymentSpecDotEnv, result[0].DeploymentSpec)
 	assert.Equal(t, "helm", result[0].DeploymentType)
+	assert.Equal(t, "dev", result[0].DeploymentEnvironment)
 
 	// print result
 	for i, item := range result {

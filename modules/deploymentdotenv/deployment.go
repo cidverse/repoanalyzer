@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
-	"github.com/gosimple/slug"
 	"golang.org/x/exp/slices"
 )
 
@@ -26,8 +25,8 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		filename := filepath.Base(file)
 
 		if strings.HasPrefix(filename, ".env-") && filepath.Dir(file) == ctx.ProjectDir {
-			env := strings.TrimPrefix(filename, ".env-")
-			if len(a.AllowedEnvironmentNames) > 0 && !slices.Contains(a.AllowedEnvironmentNames, env) {
+			envName := strings.TrimPrefix(filename, ".env-")
+			if len(a.AllowedEnvironmentNames) > 0 && !slices.Contains(a.AllowedEnvironmentNames, envName) {
 				continue
 			}
 
@@ -41,23 +40,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				continue
 			}
 
-			module := analyzerapi.ProjectModule{
-				ID:               analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
-				RootDirectory:    ctx.ProjectDir,
-				Directory:        filepath.Dir(file),
-				Name:             "deployment-" + env,
-				Slug:             slug.Make("deployment-" + env),
-				Discovery:        []analyzerapi.ProjectModuleDiscovery{{File: file}},
-				Type:             analyzerapi.ModuleTypeDeployment,
-				DeploymentSpec:   analyzerapi.DeploymentSpecDotEnv,
-				DeploymentType:   deploymentType,
-				Language:         nil,
-				Dependencies:     nil,
-				Submodules:       nil,
-				Files:            ctx.Files,
-				FilesByExtension: ctx.FilesByExtension,
-			}
-			analyzerapi.AddModuleToResult(&result, &module)
+			analyzerapi.AddModuleToResult(&result, analyzerapi.CreateProjectDeploymentModule(ctx, file, a.GetName(), "deployment-dotenv-"+envName, analyzerapi.DeploymentSpecDotEnv, deploymentType, envName))
 		}
 	}
 

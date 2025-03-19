@@ -25,21 +25,22 @@ func CreateProjectBuildSystemModule(ctx AnalyzerContext, file string, analyzerNa
 	}
 }
 
-func CreateProjectDeploymentModule(ctx AnalyzerContext, file string, analyzerName string, deploymentSpec DeploymentSpec, deploymentType string) *ProjectModule {
+func CreateProjectDeploymentModule(ctx AnalyzerContext, file string, analyzerName string, name string, deploymentSpec DeploymentSpec, deploymentType string, envName string) *ProjectModule {
 	return &ProjectModule{
-		ID:               GetSlugFromPath(ctx.ProjectDir, file, analyzerName),
-		RootDirectory:    ctx.ProjectDir,
-		Directory:        filepath.Dir(file),
-		Name:             filepath.Base(filepath.Dir(file)),
-		Slug:             slug.Make(filepath.Base(filepath.Dir(file))),
-		Discovery:        []ProjectModuleDiscovery{{File: file}},
-		Type:             ModuleTypeDeployment,
-		DeploymentSpec:   deploymentSpec,
-		DeploymentType:   deploymentType,
-		Language:         nil,
-		Dependencies:     nil,
-		Submodules:       nil,
-		Files:            ctx.Files,
-		FilesByExtension: ctx.FilesByExtension,
+		ID:                    GetSlugFromPath(ctx.ProjectDir, file, analyzerName),
+		RootDirectory:         ctx.ProjectDir,
+		Directory:             filepath.Dir(file),
+		Name:                  name,
+		Slug:                  slug.Make(name),
+		Discovery:             []ProjectModuleDiscovery{{File: file}},
+		Type:                  ModuleTypeDeployment,
+		DeploymentSpec:        deploymentSpec,
+		DeploymentType:        deploymentType,
+		DeploymentEnvironment: envName,
+		Language:              nil,
+		Dependencies:          nil,
+		Submodules:            nil,
+		Files:                 ctx.Files,
+		FilesByExtension:      ctx.FilesByExtension,
 	}
 }
