@@ -23,6 +23,9 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			envs, err := parseHelmfileEnvironments(file)
 			if err == nil {
 				for k, _ := range envs {
+					if k == "default" {
+						continue
+					}
 					analyzerapi.AddModuleToResult(&result, analyzerapi.CreateProjectDeploymentModule(ctx, file, a.GetName(), "deployment-helmfile-"+k, analyzerapi.DeploymentSpecHelmfile, "helmfile", k))
 				}
 			} else {
