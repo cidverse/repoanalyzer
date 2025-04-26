@@ -129,14 +129,10 @@ const (
 
 // ProjectDependency contains dependency information
 type ProjectDependency struct {
-	// Type is the dep kind
-	Type string `json:"type"`
-
-	// ID is the identifier
-	ID string `json:"id"`
-
-	// Version is the dep version
-	Version string `json:"version"`
+	Type    string `json:"type"`    // Type is the dep kind
+	ID      string `json:"id"`      // ID is the identifier
+	Version string `json:"version"` // Version is the dep version
+	Scope   string `json:"scope"`   // Scope is the dependency scope (e.g. dev, test, prod)
 }
 
 // AnalyzerContext holds the context to analyze projects

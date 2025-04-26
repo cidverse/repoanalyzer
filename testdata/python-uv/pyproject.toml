@@ -1,0 +1,33 @@
+[project]
+name = "test-library-python-uv"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "Philipp Heuer", email = "git@philippheuer.de" }
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+test-library-python-uv = "test_library_python_uv:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.5",
+    "pytest-cov==6.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+
+[tool.uv.workspace]
+members = [
+    "example-pkg",
+]
