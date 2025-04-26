@@ -56,6 +56,13 @@ func GetSingleLanguageMap(language ProjectLanguage, version string) map[ProjectL
 }
 
 func AddModuleToResult(result *[]*ProjectModule, module *ProjectModule) {
+	// ensure dependencies are ordered
+	if module.Dependencies != nil {
+		sort.Slice(module.Dependencies, func(i, j int) bool {
+			return module.Dependencies[i].ID < module.Dependencies[j].ID
+		})
+	}
+
 	parent := FindParentModule(result, module)
 	if parent != nil {
 		module.Name = parent.Name + "-" + module.Name

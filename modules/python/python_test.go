@@ -70,8 +70,11 @@ func TestAnalyzer_AnalyzePythonPoetry(t *testing.T) {
 	assert.Equal(t, "pyproject-poetry", string(result[0].BuildSystem))
 	assert.Equal(t, "default", string(result[0].BuildSystemSyntax))
 	assert.Len(t, result[0].Dependencies, 3)
-	assert.Equal(t, "pytest", result[0].Dependencies[1].ID)
-	assert.Equal(t, "8.3.5", result[0].Dependencies[1].Version)
+	assert.Equal(t, "pytest", result[0].Dependencies[0].ID)
+	assert.Equal(t, "8.3.5", result[0].Dependencies[0].Version)
+	assert.Equal(t, "dev", result[0].Dependencies[0].Scope)
+	assert.Equal(t, "pytest-cov", result[0].Dependencies[1].ID)
+	assert.Equal(t, "6.1.1", result[0].Dependencies[1].Version)
 	assert.Equal(t, "dev", result[0].Dependencies[1].Scope)
 
 	// print result
