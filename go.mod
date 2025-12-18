@@ -3,7 +3,7 @@ module github.com/cidverse/repoanalyzer
 go 1.24.0
 
 require (
-	github.com/BurntSushi/toml v1.5.0
+	github.com/BurntSushi/toml v1.6.0
 	github.com/cidverse/cidverseutils/filesystem v0.1.2-0.20241219211714-77ae5cef4073
 	github.com/gosimple/slug v1.15.0
 	github.com/pelletier/go-toml/v2 v2.2.4
