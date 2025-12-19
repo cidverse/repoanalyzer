@@ -51,14 +51,24 @@ func TestAnalyzer_AnalyzeHelmfileDeploymentEnvs(t *testing.T) {
 
 	// module
 	assert.Len(t, result, 2)
-	assert.Equal(t, "deployment-helmfile-dev", result[0].Name)
-	assert.Equal(t, analyzerapi.DeploymentSpecHelmfile, result[0].DeploymentSpec)
-	assert.Equal(t, "helmfile", result[0].DeploymentType)
-	assert.Equal(t, "dev", result[0].DeploymentEnvironment)
-	assert.Equal(t, "deployment-helmfile-prod", result[1].Name)
-	assert.Equal(t, analyzerapi.DeploymentSpecHelmfile, result[1].DeploymentSpec)
-	assert.Equal(t, "helmfile", result[1].DeploymentType)
-	assert.Equal(t, "prod", result[1].DeploymentEnvironment)
+	byName := make(map[string]*analyzerapi.ProjectModule)
+	for _, r := range result {
+		byName[r.Name] = r
+	}
+
+	if assert.Contains(t, byName, "deployment-helmfile-prod") {
+		r := byName["deployment-helmfile-prod"]
+		assert.Equal(t, analyzerapi.DeploymentSpecHelmfile, r.DeploymentSpec)
+		assert.Equal(t, "helmfile", r.DeploymentType)
+		assert.Equal(t, "prod", r.DeploymentEnvironment)
+	}
+
+	if assert.Contains(t, byName, "deployment-helmfile-dev") {
+		r := byName["deployment-helmfile-dev"]
+		assert.Equal(t, analyzerapi.DeploymentSpecHelmfile, r.DeploymentSpec)
+		assert.Equal(t, "helmfile", r.DeploymentType)
+		assert.Equal(t, "dev", r.DeploymentEnvironment)
+	}
 
 	// print result
 	for i, item := range result {
