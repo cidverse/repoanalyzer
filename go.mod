@@ -1,6 +1,6 @@
 module github.com/cidverse/repoanalyzer
 
-go 1.24.0
+go 1.25.0
 
 require (
 	github.com/BurntSushi/toml v1.6.0
@@ -10,7 +10,7 @@ require (
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20260112195511-716be5621a96
-	golang.org/x/mod v0.33.0
+	golang.org/x/mod v0.34.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
