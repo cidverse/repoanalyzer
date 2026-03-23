@@ -25,6 +25,24 @@ func TestAnalyzer_AnalyzeHelmfile(t *testing.T) {
 	}
 }
 
+func TestAnalyzer_AnalyzeHelmfileGoTmpl(t *testing.T) {
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "helmfile-gotmpl"))
+	analyzer := Analyzer{}
+	result := analyzer.Scan(ctx)
+
+	// module
+	assert.Len(t, result, 1)
+	assert.Equal(t, "helmfile-gotmpl", result[0].Name)
+	assert.Equal(t, analyzerapi.BuildSystemHelmfile, result[0].BuildSystem)
+	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
+	assert.Nil(t, result[0].Language)
+
+	// print result
+	for i, item := range result {
+		t.Logf("result[%d]: %+v", i, *item)
+	}
+}
+
 func TestAnalyzer_AnalyzeHelmfileDeployment(t *testing.T) {
 	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "helmfile"))
 	analyzer := Analyzer{}
