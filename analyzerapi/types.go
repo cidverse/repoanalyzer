@@ -82,6 +82,7 @@ const (
 	BuildSystemPyprojectPoetry ProjectBuildSystem = "pyproject-poetry"
 	BuildSystemPyprojectUV     ProjectBuildSystem = "pyproject-uv"
 	BuildSystemMkdocs          ProjectBuildSystem = "mkdocs"
+	BuildSystemRspress         ProjectBuildSystem = "rspress"
 	BuildSystemComposer        ProjectBuildSystem = "composer"
 	BuildSystemDotNet          ProjectBuildSystem = "dotnet"
 	BuildSystemCargo           ProjectBuildSystem = "cargo"

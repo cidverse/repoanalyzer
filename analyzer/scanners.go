@@ -23,6 +23,7 @@ import (
 	"github.com/cidverse/repoanalyzer/modules/python"
 	"github.com/cidverse/repoanalyzer/modules/quartz"
 	"github.com/cidverse/repoanalyzer/modules/renovate"
+	"github.com/cidverse/repoanalyzer/modules/rspress"
 )
 
 // AllScanners contains all available scanners
@@ -50,4 +51,5 @@ var AllScanners = []analyzerapi.Scanner{
 	python.Analyzer{},
 	quartz.Analyzer{},
 	renovate.Analyzer{},
+	rspress.Analyzer{},
 }
