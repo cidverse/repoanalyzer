@@ -40,6 +40,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
 				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				Type:              analyzerapi.ModuleTypeBuildSystem,
+				Category:          analyzerapi.ModuleCategoryPhp,
 				BuildSystem:       analyzerapi.BuildSystemComposer,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          language,

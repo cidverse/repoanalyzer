@@ -65,6 +65,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				Slug:              slug.Make(goMod.Module.Mod.Path),
 				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				Type:              analyzerapi.ModuleTypeBuildSystem,
+				Category:          analyzerapi.ModuleCategoryGo,
 				BuildSystem:       analyzerapi.BuildSystemGoMod,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          analyzerapi.GetSingleLanguageMap(analyzerapi.LanguageGolang, goVersion),

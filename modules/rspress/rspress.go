@@ -21,6 +21,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		switch filename {
 		case "rspress.config.ts", "rspress.config.mjs", "rspress.config.js", "rspress.config.mts", "rspress.config.cts":
 			module := analyzerapi.CreateProjectBuildSystemModule(ctx, file, a.GetName(), analyzerapi.BuildSystemRspress)
+			module.Category = analyzerapi.ModuleCategoryNode
 			analyzerapi.AddModuleToResult(&result, module)
 		}
 	}

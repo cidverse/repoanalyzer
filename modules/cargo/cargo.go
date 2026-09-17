@@ -35,6 +35,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
 				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				Type:              analyzerapi.ModuleTypeBuildSystem,
+				Category:          analyzerapi.ModuleCategoryRust,
 				BuildSystem:       analyzerapi.BuildSystemCargo,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          analyzerapi.GetSingleLanguageMap(analyzerapi.LanguageRust, getRustVersionFromCargoFile(cargoFile)),

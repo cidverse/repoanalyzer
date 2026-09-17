@@ -1,0 +1,7 @@
+{
+  "name": "rspress-node",
+  "version": "0.0.0",
+  "dependencies": {
+    "rspress": "1.0.0"
+  }
+}

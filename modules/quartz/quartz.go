@@ -28,6 +28,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				Slug:              slug.Make(filepath.Base(filepath.Dir(file))),
 				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				Type:              analyzerapi.ModuleTypeBuildSystem,
+				Category:          analyzerapi.ModuleCategoryNode,
 				BuildSystem:       analyzerapi.BuildSystemQuartz,
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          nil,

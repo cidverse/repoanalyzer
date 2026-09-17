@@ -20,6 +20,7 @@ type ProjectModule struct {
 	Name                  string                     `json:"name"`                   // Name stores the module name
 	Slug                  string                     `json:"slug"`                   // Slug contains an url/folder name compatible name of the module
 	Type                  ModuleType                 `json:"type"`                   // Type of the module
+	Category              ModuleCategory            `json:"category"`               // Category of the module, e.g. node, go, java, python, ... only applies to modules of type build_system
 	BuildSystem           ProjectBuildSystem         `json:"build_system"`           // BuildSystem used in this project, only applies to modules of type build_system
 	BuildSystemSyntax     ProjectBuildSystemSyntax   `json:"build_system_syntax"`    // BuildSystemSyntax used in this project, only applies to modules of type build_system
 	SpecificationType     SpecificationType          `json:"specification_type"`     // SpecificationType that was found, only applies to modules of type spec
@@ -46,6 +47,18 @@ const (
 	ModuleTypeSpec        ModuleType = "spec"         // e.g. OpenAPI, AsyncAPI, ...
 	ModuleTypeConfig      ModuleType = "config"       // e.g. .env, .gitlab-ci.yml, ...
 	ModuleTypeDeployment  ModuleType = "deployment"   // e.g. Helm Deployment Configuration, Ansible Deployment Configuration, ...
+)
+
+type ModuleCategory string
+
+const (
+	ModuleCategoryNode   ModuleCategory = "node"   // node/npm based project, includes node-based static site generators (e.g. rspress, quartz)
+	ModuleCategoryGo     ModuleCategory = "go"     // go module project (go.mod)
+	ModuleCategoryJava   ModuleCategory = "java"   // java project (maven, gradle)
+	ModuleCategoryPython ModuleCategory = "python" // python project
+	ModuleCategoryRust   ModuleCategory = "rust"   // rust project (cargo)
+	ModuleCategoryPhp    ModuleCategory = "php"    // php project (composer)
+	ModuleCategoryDotNet ModuleCategory = "dotnet" // dotnet project
 )
 
 type ProjectLanguage string

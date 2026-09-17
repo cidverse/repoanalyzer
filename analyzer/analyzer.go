@@ -57,6 +57,9 @@ func (a Analyzer) Scan(dir string) []*analyzerapi.ProjectModule {
 		}
 	}
 
+	// deduplicate modules, only one module per directory and category may exist (the most specific one)
+	allModules = DeduplicateModules(allModules)
+
 	slog.Debug("repo analyzer complete", slog.String("path", dir), slog.Int("module_count", len(allModules)), slog.String("modules", strings.Join(allModuleNames, ",")), slog.String("duration", time.Since(start).String()), slog.Int("file_count", len(ctx.Files)))
 
 	if a.enableCache {
