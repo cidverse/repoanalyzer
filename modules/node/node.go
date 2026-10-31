@@ -2,6 +2,7 @@ package node
 
 import (
 	"path/filepath"
+	"strings"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
 	"github.com/gosimple/slug"
@@ -24,6 +25,13 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		if filename == "package.json" {
 			packageData, packageDataErr := ParsePackageJSON(file)
 			if packageDataErr != nil {
+				continue
+			}
+
+			// skip package.json files without a usable module name
+			moduleName := strings.TrimSpace(packageData.Name)
+			moduleSlug := slug.Make(moduleName)
+			if moduleName == "" || moduleSlug == "" {
 				continue
 			}
 
@@ -52,8 +60,8 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
 				Directory:         filepath.Dir(file),
-				Name:              packageData.Name,
-				Slug:              slug.Make(packageData.Name),
+				Name:              moduleName,
+				Slug:              moduleSlug,
 				Discovery:         []analyzerapi.ProjectModuleDiscovery{{File: file}},
 				Type:              analyzerapi.ModuleTypeBuildSystem,
 				Category:          analyzerapi.ModuleCategoryNode,

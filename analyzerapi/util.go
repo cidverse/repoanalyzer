@@ -1,25 +1,23 @@
 package analyzerapi
 
 import (
-	"os"
+	"io/fs"
 	"path/filepath"
 	"sort"
 	"strings"
 
+	"github.com/charlievieth/fastwalk"
 	"github.com/cidverse/cidverseutils/filesystem"
 	"github.com/gosimple/slug"
-	ignore "github.com/sabhiram/go-gitignore"
 	"golang.org/x/exp/slog"
 )
 
 func GetAnalyzerContext(projectDir string) AnalyzerContext {
-	// respect gitignore
-	ignoreMatcher := ProcessIgnoreFiles([]string{filepath.Join(projectDir, ".gitignore"), filepath.Join(projectDir, ".cidignore")}, []string{".git", ".svn", ".hg"})
+	// respect gitignore, including nested ignore files
+	ignoreMatcher := ProcessIgnoreFiles(projectDir)
 
-	files, err := filesystem.FindFiles(projectDir, func(absPath string, name string) bool {
-		return ignoreMatcher.MatchesPath(absPath)
-	}, func(absPath string, name string) bool {
-		return true
+	files, err := findFiles(projectDir, func(absPath string, isDir bool) bool {
+		return ignoreMatcher.MatchesPath(absPath, isDir)
 	})
 	if err != nil {
 		slog.Error("failed to get directory list", err, slog.String("path", projectDir))
@@ -37,6 +35,36 @@ func GetAnalyzerContext(projectDir string) AnalyzerContext {
 		Files:            files,
 		FilesByExtension: filesByExtension,
 	}
+}
+
+func findFiles(rootPath string, ignore func(absPath string, isDir bool) bool) ([]string, error) {
+	var files []string
+
+	conf := fastwalk.Config{
+		Follow: false,
+	}
+	err := fastwalk.Walk(&conf, rootPath, func(path string, info fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if ignore(path, info.IsDir()) {
+			if info.IsDir() {
+				return filepath.SkipDir
+			}
+
+			return nil
+		}
+
+		if !info.IsDir() {
+			files = append(files, path)
+		}
+		return nil
+	})
+
+	sort.Strings(files)
+
+	return files, err
 }
 
 func FindParentModule(modules *[]*ProjectModule, module *ProjectModule) *ProjectModule {
@@ -77,21 +105,6 @@ func AddModuleToResult(result *[]*ProjectModule, module *ProjectModule) {
 	} else {
 		*result = append(*result, module)
 	}
-}
-
-func ProcessIgnoreFiles(files []string, ignoreLines []string) *ignore.GitIgnore {
-	for _, file := range files {
-		if _, err := os.Stat(file); err == nil {
-			content, contentErr := os.ReadFile(file)
-			if contentErr == nil {
-				for _, l := range strings.Split(string(content), "\n") {
-					ignoreLines = append(ignoreLines, l)
-				}
-			}
-		}
-	}
-
-	return ignore.CompileIgnoreLines(ignoreLines...)
 }
 
 func GetSlugFromPath(projectDir, file, analyzerName string) string {
