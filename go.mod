@@ -9,7 +9,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.4.3
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06
 	github.com/stretchr/testify v1.12.1
-	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba
+	golang.org/x/exp v0.0.0-20261014143641-f0251eb4aa3e
 	golang.org/x/mod v0.42.0
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -17,5 +17,5 @@ require (
 require (
 	github.com/charlievieth/fastwalk v1.0.14 // indirect
 	github.com/gosimple/unidecode v1.0.1 // indirect
-	go.yaml.in/yaml/v3 v3.0.5 // indirect
+	go.yaml.in/yaml/v3 v3.0.6 // indirect
 )
