@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"sync"
 
 	"github.com/charlievieth/fastwalk"
 	"github.com/cidverse/cidverseutils/filesystem"
@@ -38,7 +39,10 @@ func GetAnalyzerContext(projectDir string) AnalyzerContext {
 }
 
 func findFiles(rootPath string, ignore func(absPath string, isDir bool) bool) ([]string, error) {
-	var files []string
+	var (
+		mu    sync.Mutex
+		files []string
+	)
 
 	conf := fastwalk.Config{
 		Follow: false,
@@ -57,7 +61,9 @@ func findFiles(rootPath string, ignore func(absPath string, isDir bool) bool) ([
 		}
 
 		if !info.IsDir() {
+			mu.Lock()
 			files = append(files, path)
+			mu.Unlock()
 		}
 		return nil
 	})

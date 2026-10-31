@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 
 	ignore "github.com/sabhiram/go-gitignore"
 )
@@ -41,6 +42,7 @@ func (r *projectIgnoreRules) match(path string) (ignored bool, matched bool) {
 // ProjectIgnoreMatcher checks paths against the project's ignore rules.
 type ProjectIgnoreMatcher struct {
 	projectDir  string
+	mu          sync.RWMutex
 	directories map[string]*projectIgnoreRules
 }
 
@@ -99,7 +101,10 @@ func (m *ProjectIgnoreMatcher) MatchesPath(absPath string, isDir bool) bool {
 }
 
 func (m *ProjectIgnoreMatcher) rulesForDirectory(dir string) *projectIgnoreRules {
-	if rules, ok := m.directories[dir]; ok {
+	m.mu.RLock()
+	rules, ok := m.directories[dir]
+	m.mu.RUnlock()
+	if ok {
 		return rules
 	}
 
@@ -112,8 +117,10 @@ func (m *ProjectIgnoreMatcher) rulesForDirectory(dir string) *projectIgnoreRules
 		lines = append(lines, strings.Split(string(content), "\n")...)
 	}
 
-	rules := compileIgnoreRules(lines)
+	rules = compileIgnoreRules(lines)
+	m.mu.Lock()
 	m.directories[dir] = rules
+	m.mu.Unlock()
 	return rules
 }
 
