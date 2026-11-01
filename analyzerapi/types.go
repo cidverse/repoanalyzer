@@ -20,7 +20,7 @@ type ProjectModule struct {
 	Name                  string                     `json:"name"`                   // Name stores the module name
 	Slug                  string                     `json:"slug"`                   // Slug contains an url/folder name compatible name of the module
 	Type                  ModuleType                 `json:"type"`                   // Type of the module
-	Category              ModuleCategory            `json:"category"`               // Category of the module, e.g. node, go, java, python, ... only applies to modules of type build_system
+	Category              ModuleCategory             `json:"category"`               // Category of the module, e.g. node, go, java, python, ... only applies to modules of type build_system
 	BuildSystem           ProjectBuildSystem         `json:"build_system"`           // BuildSystem used in this project, only applies to modules of type build_system
 	BuildSystemSyntax     ProjectBuildSystemSyntax   `json:"build_system_syntax"`    // BuildSystemSyntax used in this project, only applies to modules of type build_system
 	SpecificationType     SpecificationType          `json:"specification_type"`     // SpecificationType that was found, only applies to modules of type spec
@@ -30,6 +30,7 @@ type ProjectModule struct {
 	DeploymentEnvironment string                     `json:"deployment_environment"` // DeploymentEnvironment is the environment the deployment is for, e.g. staging, production, ...
 	Language              map[ProjectLanguage]string `json:"language"`               // Language of the project
 	Dependencies          []ProjectDependency        `json:"dependencies"`           // Dependencies
+	Repositories          []ProjectRepository        `json:"repositories,omitempty"` // Repositories is a list of external repositories this module pulls artifacts from
 	Submodules            []*ProjectModule           `json:"submodules"`             // Submodules contains information about submodules
 	Files                 []string                   `json:"files"`                  // Files holds all project files
 	FilesByExtension      map[string][]string        `json:"-"`                      // FilesByExtension contains all files by extension
@@ -147,6 +148,32 @@ type ProjectDependency struct {
 	ID      string `json:"id"`      // ID is the identifier
 	Version string `json:"version"` // Version is the dep version
 	Scope   string `json:"scope"`   // Scope is the dependency scope (e.g. dev, test, prod)
+}
+
+// ProjectRepositoryType is the type of an external artifact repository
+type ProjectRepositoryType string
+
+const (
+	RepositoryTypeHelm     ProjectRepositoryType = "helm"     // helm chart repository (http/https)
+	RepositoryTypeOCI      ProjectRepositoryType = "oci"      // OCI registry
+	RepositoryTypeGit      ProjectRepositoryType = "git"      // git source (ansible roles/collections)
+	RepositoryTypeGalaxy   ProjectRepositoryType = "galaxy"   // ansible galaxy server
+	RepositoryTypeNpm      ProjectRepositoryType = "npm"      // npm registry
+	RepositoryTypeCargo    ProjectRepositoryType = "cargo"    // crates.io / cargo registry
+	RepositoryTypeComposer ProjectRepositoryType = "composer" // composer/packagist repository
+	RepositoryTypeMaven    ProjectRepositoryType = "maven"    // maven repository
+	RepositoryTypeGradle   ProjectRepositoryType = "gradle"   // gradle repository
+	RepositoryTypeGo       ProjectRepositoryType = "go"       // go module proxy
+	RepositoryTypePython   ProjectRepositoryType = "python"   // python package index
+	RepositoryTypeNix      ProjectRepositoryType = "nix"      // nix flake input
+	RepositoryTypeNuget    ProjectRepositoryType = "nuget"    // nuget package source
+)
+
+// ProjectRepository describes an external repository a module pulls artifacts from
+type ProjectRepository struct {
+	Type ProjectRepositoryType `json:"type"`           // Type is the repository kind
+	Name string                `json:"name,omitempty"` // Name is the declared name/alias (helm repo, chart, role, collection)
+	URL  string                `json:"url"`            // URL is the absolute repository URL, scheme preserved
 }
 
 // AnalyzerContext holds the context to analyze projects

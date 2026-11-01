@@ -1,0 +1,10 @@
+---
+roles:
+  - name: geerlingguy.nginx
+  - src: https://github.com/org/role.git
+    name: org.role
+  - src: git@github.com:org/other-role.git
+    name: org.other
+  - src: geerlingguy.docker
+  - src: ./local-role
+    name: local.role

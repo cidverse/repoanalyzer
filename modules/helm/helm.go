@@ -37,6 +37,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				Files:             ctx.Files,
 				FilesByExtension:  ctx.FilesByExtension,
 			}
+			module.Repositories = parseChartRepositories(file)
 			analyzerapi.AddModuleToResult(&result, &module)
 		}
 	}

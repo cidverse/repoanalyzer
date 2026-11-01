@@ -70,6 +70,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          analyzerapi.GetSingleLanguageMap(analyzerapi.LanguageGolang, goVersion),
 				Dependencies:      dependencies,
+				Repositories:      []analyzerapi.ProjectRepository{analyzerapi.RepositoryGoProxy},
 				Submodules:        nil,
 				Files:             ctx.Files,
 				FilesByExtension:  ctx.FilesByExtension,

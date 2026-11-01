@@ -1,0 +1,6 @@
+dependencies:
+  - name: aliased
+    repository: https://charts.example.com/stable
+    version: 2.0.0
+digest: sha256:0000000000000000000000000000000000000000000000000000000000000000
+generated: "2026-01-01T00:00:00Z"

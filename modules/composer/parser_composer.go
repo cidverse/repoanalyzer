@@ -22,10 +22,11 @@ type ComposerJSON struct {
 		Type string `json:"type"`
 		URL  string `json:"url"`
 	} `json:"funding"`
-	Require    map[string]string   `json:"require"`
-	RequireDev map[string]string   `json:"require-dev"`
-	Autoload   interface{}         `json:"autoload"`
-	Scripts    map[string][]string `json:"scripts"`
+	Require      map[string]string   `json:"require"`
+	RequireDev   map[string]string   `json:"require-dev"`
+	Autoload     interface{}         `json:"autoload"`
+	Scripts      map[string][]string `json:"scripts"`
+	Repositories interface{}         `json:"repositories"`
 }
 
 // ParseComposerJSON parses the composer.json

@@ -40,6 +40,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          analyzerapi.GetSingleLanguageMap(analyzerapi.LanguageRust, getRustVersionFromCargoFile(cargoFile)),
 				Dependencies:      nil,
+				Repositories:      cargoRepositories(filepath.Dir(file), ctx.ProjectDir),
 				Submodules:        nil,
 				Files:             ctx.Files,
 				FilesByExtension:  ctx.FilesByExtension,

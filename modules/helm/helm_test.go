@@ -24,3 +24,17 @@ func TestAnalyzer_AnalyzeHugo(t *testing.T) {
 		t.Logf("result[%d]: %+v", i, *item)
 	}
 }
+
+func TestAnalyzer_AnalyzeChartDependencies(t *testing.T) {
+	ctx := analyzerapi.GetAnalyzerContext(analyzerapi.GetTestDataDir(t, "helm-dependencies"))
+	analyzer := Analyzer{}
+	result := analyzer.Scan(ctx)
+
+	assert.Len(t, result, 1)
+	assert.Equal(t, "mychart", result[0].Name)
+	assert.Equal(t, []analyzerapi.ProjectRepository{
+		{Type: analyzerapi.RepositoryTypeHelm, Name: "nginx", URL: "https://charts.bitnami.com/bitnami"},
+		{Type: analyzerapi.RepositoryTypeOCI, Name: "redis", URL: "oci://registry-1.docker.io/bitnamicharts"},
+		{Type: analyzerapi.RepositoryTypeHelm, Name: "aliased", URL: "https://charts.example.com/stable"},
+	}, result[0].Repositories)
+}

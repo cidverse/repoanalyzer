@@ -54,6 +54,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 			Language:          language,
 			Dependencies:      dependencies,
+			Repositories:      pomXMLRepositories(pomXML),
 			Submodules:        nil,
 			Files:             ctx.Files,
 			FilesByExtension:  ctx.FilesByExtension,

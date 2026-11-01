@@ -26,6 +26,14 @@ func TestAnsibleAnalyzer_Analyze(t *testing.T) {
 	assert.Equal(t, analyzerapi.BuildSystemAnsible, result[0].BuildSystem)
 	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
 
+	assert.Equal(t, []analyzerapi.ProjectRepository{
+		{Type: analyzerapi.RepositoryTypeGalaxy, Name: "galaxy.ansible.com", URL: "https://galaxy.ansible.com"},
+		{Type: analyzerapi.RepositoryTypeGit, Name: "org.role", URL: "https://github.com/org/role.git"},
+		{Type: analyzerapi.RepositoryTypeGit, Name: "org.other", URL: "ssh://git@github.com/org/other-role.git"},
+		{Type: analyzerapi.RepositoryTypeGit, Name: "https://github.com/org/coll.git", URL: "https://github.com/org/coll.git"},
+		{Type: analyzerapi.RepositoryTypeGalaxy, Name: "https://galaxy.example.com", URL: "https://galaxy.example.com"},
+	}, result[0].Repositories)
+
 	// submodule
 	assert.Len(t, result[0].Submodules, 0)
 

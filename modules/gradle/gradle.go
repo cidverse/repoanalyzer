@@ -50,6 +50,10 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 		var dependencies []analyzerapi.ProjectDependency
 		dependencies = append(dependencies, buildGradle.Dependencies...)
 
+		// repositories
+		content, _ := os.ReadFile(file)
+		repositories := gradleRepositories(string(content))
+
 		// module
 		module := analyzerapi.ProjectModule{
 			ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
@@ -64,6 +68,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 			BuildSystemSyntax: buildSystemSyntax,
 			Language:          buildGradle.Languages,
 			Dependencies:      buildGradle.Dependencies,
+			Repositories:      repositories,
 			Submodules:        nil,
 			Files:             ctx.Files,
 			FilesByExtension:  ctx.FilesByExtension,

@@ -1,0 +1,7 @@
+---
+collections:
+  - name: community.general
+  - name: https://github.com/org/coll.git
+    type: git
+  - name: community.other
+    source: https://galaxy.example.com

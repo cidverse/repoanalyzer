@@ -69,6 +69,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          language,
 				Dependencies:      dependencies,
+				Repositories:      npmRepositories(filepath.Dir(file), ctx.ProjectDir),
 				Submodules:        nil,
 				Files:             ctx.Files,
 				FilesByExtension:  ctx.FilesByExtension,

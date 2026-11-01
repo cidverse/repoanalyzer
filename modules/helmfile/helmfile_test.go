@@ -18,6 +18,9 @@ func TestAnalyzer_AnalyzeHelmfile(t *testing.T) {
 	assert.Equal(t, analyzerapi.BuildSystemHelmfile, result[0].BuildSystem)
 	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
 	assert.Nil(t, result[0].Language)
+	assert.Equal(t, []analyzerapi.ProjectRepository{
+		{Type: analyzerapi.RepositoryTypeHelm, Name: "prometheus-community", URL: "https://prometheus-community.github.io/helm-charts"},
+	}, result[0].Repositories)
 
 	// print result
 	for i, item := range result {
@@ -36,6 +39,9 @@ func TestAnalyzer_AnalyzeHelmfileGoTmpl(t *testing.T) {
 	assert.Equal(t, analyzerapi.BuildSystemHelmfile, result[0].BuildSystem)
 	assert.Equal(t, analyzerapi.BuildSystemSyntaxDefault, result[0].BuildSystemSyntax)
 	assert.Nil(t, result[0].Language)
+	assert.Equal(t, []analyzerapi.ProjectRepository{
+		{Type: analyzerapi.RepositoryTypeHelm, Name: "prometheus-community", URL: "https://prometheus-community.github.io/helm-charts"},
+	}, result[0].Repositories)
 
 	// print result
 	for i, item := range result {
@@ -55,6 +61,9 @@ func TestAnalyzer_AnalyzeHelmfileDeployment(t *testing.T) {
 	assert.Equal(t, "helmfile", result[0].DeploymentType)
 	assert.Equal(t, "dev", result[0].DeploymentEnvironment)
 	assert.Nil(t, result[0].Language)
+	assert.Equal(t, []analyzerapi.ProjectRepository{
+		{Type: analyzerapi.RepositoryTypeHelm, Name: "prometheus-community", URL: "https://prometheus-community.github.io/helm-charts"},
+	}, result[0].Repositories)
 
 	// print result
 	for i, item := range result {
@@ -79,6 +88,9 @@ func TestAnalyzer_AnalyzeHelmfileDeploymentEnvs(t *testing.T) {
 		assert.Equal(t, analyzerapi.DeploymentSpecHelmfile, r.DeploymentSpec)
 		assert.Equal(t, "helmfile", r.DeploymentType)
 		assert.Equal(t, "prod", r.DeploymentEnvironment)
+		assert.Equal(t, []analyzerapi.ProjectRepository{
+			{Type: analyzerapi.RepositoryTypeHelm, Name: "prometheus-community", URL: "https://prometheus-community.github.io/helm-charts"},
+		}, r.Repositories)
 	}
 
 	if assert.Contains(t, byName, "deployment-helmfile-dev") {
@@ -86,6 +98,9 @@ func TestAnalyzer_AnalyzeHelmfileDeploymentEnvs(t *testing.T) {
 		assert.Equal(t, analyzerapi.DeploymentSpecHelmfile, r.DeploymentSpec)
 		assert.Equal(t, "helmfile", r.DeploymentType)
 		assert.Equal(t, "dev", r.DeploymentEnvironment)
+		assert.Equal(t, []analyzerapi.ProjectRepository{
+			{Type: analyzerapi.RepositoryTypeHelm, Name: "prometheus-community", URL: "https://prometheus-community.github.io/helm-charts"},
+		}, r.Repositories)
 	}
 
 	// print result

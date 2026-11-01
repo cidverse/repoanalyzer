@@ -26,10 +26,12 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 
 			// parse composer.json
 			composerJSON, err := ParseComposerJSON(file)
+			var repositories []analyzerapi.ProjectRepository
 			if err == nil {
 				if val, ok := composerJSON.Require["php"]; ok {
 					language[analyzerapi.LanguagePHP] = regexp.MustCompile("[^0-9.]").ReplaceAllString(val, "")
 				}
+				repositories = composerRepositories(composerJSON)
 			}
 
 			module := analyzerapi.ProjectModule{
@@ -45,6 +47,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxDefault,
 				Language:          language,
 				Dependencies:      nil,
+				Repositories:      repositories,
 				Submodules:        nil,
 				Files:             ctx.Files,
 				FilesByExtension:  ctx.FilesByExtension,

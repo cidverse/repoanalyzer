@@ -1,6 +1,7 @@
 package nix
 
 import (
+	"os"
 	"path/filepath"
 
 	"github.com/cidverse/repoanalyzer/analyzerapi"
@@ -21,6 +22,11 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 
 		// nix flakes
 		if filename == "flake.nix" {
+			var repositories []analyzerapi.ProjectRepository
+			if content, err := os.ReadFile(file); err == nil {
+				repositories = nixRepositories(string(content))
+			}
+
 			module := analyzerapi.ProjectModule{
 				ID:                analyzerapi.GetSlugFromPath(ctx.ProjectDir, file, a.GetName()),
 				RootDirectory:     ctx.ProjectDir,
@@ -33,6 +39,7 @@ func (a Analyzer) Scan(ctx analyzerapi.AnalyzerContext) []*analyzerapi.ProjectMo
 				BuildSystemSyntax: analyzerapi.BuildSystemSyntaxNixFlake,
 				Language:          analyzerapi.GetSingleLanguageMap(analyzerapi.LanguageNix, "0.0.0"),
 				Dependencies:      nil,
+				Repositories:      repositories,
 				Submodules:        nil,
 				Files:             ctx.Files,
 				FilesByExtension:  ctx.FilesByExtension,
